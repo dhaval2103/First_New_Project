@@ -15,6 +15,11 @@ class product extends Model
         'price',
     ];
 
+    public function watch()
+    {
+        return $this->hasOne(product::class, 'id', 'watch_id');
+    }
+
     public function getImageAttribute($value)
     {
         return $value ? asset('images' . '/' . $value) : NULL;

@@ -19,6 +19,14 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::post('edituser', [DashboardController::class, 'edituser'])->name('edituserdata');
     Route::post('updateuser', [DashboardController::class, 'updateuser'])->name('updateuserdata');
     Route::post('deletuser', [DashboardController::class, 'deleteuser'])->name('deleteuserdata');
-    Route::post('addproduct', [DashboardController::class, 'addproduct'])->name('addproduct');
+    Route::get('addproduct', [DashboardController::class, 'addproduct'])->name('addproduct');
     Route::get('productdetail', [DashboardController::class, 'productdetail'])->name('productdetail');
+    Route::get('addwatchbrand', [DashboardController::class, 'addwatchbrand'])->name('addwatchbrand');
+    Route::post('insertwatch', [DashboardController::class, 'insertwatch'])->name('insertwatch');
+    Route::post('productinsert', [DashboardController::class, 'productinsert'])->name('productinsert');
+    Route::post('productdelete', [DashboardController::class, 'productdelete'])->name('productdelete');
+    Route::get('productedit/{id}', [DashboardController::class, 'productedit'])->name('productedit');
+    Route::post('productupdate', [DashboardController::class, 'productupdate'])->name('productupdate');
+    Route::get('productview/{id}', [DashboardController::class, 'productview'])->name('productview');
+    Route::get('cartview/{id}', [DashboardController::class, 'cartview'])->name('cartview');
 });

@@ -592,6 +592,7 @@ class ComposerStaticInite934f6d4d099790c7e55f9c8bd629e10
 
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
+        'App\\DataTables\\productdatatable' => __DIR__ . '/../..' . '/app/DataTables/productdatatable.php',
         'App\\DataTables\\userdatatable' => __DIR__ . '/../..' . '/app/DataTables/userdatatable.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Admin\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/DashboardController.php',
@@ -616,6 +617,7 @@ class ComposerStaticInite934f6d4d099790c7e55f9c8bd629e10
         'App\\Models\\Admin' => __DIR__ . '/../..' . '/app/Models/Admin.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\product' => __DIR__ . '/../..' . '/app/Models/product.php',
+        'App\\Models\\watchbrand' => __DIR__ . '/../..' . '/app/Models/watchbrand.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',

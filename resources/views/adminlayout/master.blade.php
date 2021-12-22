@@ -6,10 +6,15 @@
     <meta charset="utf-8" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard | Minible - Responsive Bootstrap 4 Admin Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {{-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesbrand" name="author" />
+    <meta content="Themesbrand" name="author" /> --}}
+
+    <title>Dashboard | Minible - Responsive Bootstrap 4 Admin Dashboard</title>
+    {{-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" /> --}}
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 
@@ -24,6 +29,21 @@
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <!-- App favicon -->
+    {{-- <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}"> --}}
+
+    <!-- ION Slider -->
+    {{-- <link href="{{ asset('assets/libs/ion-rangeslider/css/ion.rangeSlider.min.css') }}" rel="stylesheet" --}}
+        type="text/css" />
+
+    <!-- Bootstrap Css -->
+    {{-- <link href="a{{ asset('assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" /> --}}
+    <!-- Icons Css -->
+    {{-- <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" /> --}}
+    <!-- App Css-->
+    {{-- <link href="{{ asset('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" /> --}}
+
     <style>
         label.error {
             color: #F00;
@@ -76,7 +96,7 @@
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
                                 class="uil uil-sign-out-alt font-size-18 align-middle mr-1 text-muted"></i> <span
-                                class="align-middle">Sign out</span></a>
+                                class="align-middle"><b>Sign out</b></span></a>
 
                         <form id="logout-form" action="{{ route('admin.logout') }}" method="POST"
                             class="d-none">
@@ -174,11 +194,18 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{ route('admin.addwatchbrand') }}" class="waves-effect">
+                                <i class="fa fa-user"></i>
+                                <span>Add Watch-Brand</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ route('admin.productdetail') }}" class="waves-effect">
                                 <i class="fa fa-user"></i>
                                 <span>Product-List</span>
                             </a>
                         </li>
+
                     </ul>
                 </div>
                 <!-- Sidebar -->
@@ -294,7 +321,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
-
 
     {{-- <script src="{{ asset('assets/js/app.js') }}"></script> --}}
     @stack('js')

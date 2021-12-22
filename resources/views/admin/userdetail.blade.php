@@ -19,11 +19,7 @@
         </section> --}}
 
         <section class="content">
-            <h1>DataTables</h1>
-            {{-- <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="">Home</a></li>
-                            <li class="breadcrumb-item active">DataTables</li>
-                        </ol> --}}
+            <h1>User Detail</h1>
             <div class="row">
                 <div class="col-12">
                     {{-- user edit modal --}}
@@ -70,74 +66,6 @@
                     </div>
                     {{-- end useredit data --}}
 
-                    {{-- Add Product --}}
-                    {{-- <div class="modal fade" id="addproductModal" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-
-                                <div class="modal-body">
-                                    @if (Session::has('add_category'))
-                                        <span>{{ Session::get('add_category') }}</span>
-                                    @endif
-                                    <form method="POST" enctype="multipart/form-data" id="register">
-                                        @csrf
-                                        <input type="hidden" class="form-control" id="userid" name="userid">
-                                        <div class="alert alert-success d-none" id="msg_div">
-                                            <span id="res_message"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="recipient-name" class="col-form-label">Title :</label>
-                                            <input type="text" class="form-control" id="title" name="title">
-                                            @error('title')
-                                                <span style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="message-text" class="col-form-label">Description :</label>
-                                            <textarea class="form-control" id="description" name="description"></textarea>
-                                            @error('description')
-                                                <span style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="message-text" class="col-form-label">Price :</label>
-                                            <input type="number" class="form-control" id="price" name="price">
-                                            @error('price')
-                                                <span style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="image" class="col-form-label">Image :</label><br>
-                                            <input type="file" name="image" id="image">
-                                            @error('image')
-                                                <span style="color: red">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div>
-                                            <img src="" id="imageshow" alt="" height="100px">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary addbtn"
-                                                id="addbutton">Submit</button>
-                                            <div id="msgdisplay"></div>
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div> --}}
-
-                    {{-- End Add Product --}}
                     <div class="card-body">
                         {{ $dataTable->table(['class' => 'table table-bordered dt-responsive nowrap']) }}
                     </div>
