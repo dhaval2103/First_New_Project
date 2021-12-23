@@ -11,6 +11,7 @@ use App\Models\watchbrand;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
@@ -84,14 +85,12 @@ class DashboardController extends Controller
         if ($request->file('image')) {
             $files = [];
             foreach ($request->file('image') as $input) {
-                $imagename = $request->file('image');
                 $destinationPath = 'images/';
                 $profileImage = time() . '.' . $input->extension();
                 $input->move($destinationPath, $profileImage);
                 $files[] = $profileImage;
             }
         }
-
         $add = new product;
         $add->watch_id = $request->watchbrand;
         $add->title = $request->title;
@@ -105,32 +104,31 @@ class DashboardController extends Controller
     public function productedit(Request $request)
     {
         $watchbrand = watchbrand::all();
-        $query = product::where('id', $request->id)->first();
+        $query = DB::table('products')->where('id', $request->id)->first();
         return view('admin.productedit', compact('query', 'watchbrand'));
     }
 
-    public function productupdate(Request $request)
+    public function productupdate(productvalidation $request)
     {
-        $input = $request->all();
+        $files = $request->all();
         if ($image = $request->file('image')) {
-            $cust = DB::table('products')->where('id', $request->id)->first();
-            $input['image'] = $cust->image;
-            unlink('images/' . $input['image']);
-            $destinationPath = public_path('images');
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
-            $input['image'] = "$profileImage";
-        }
-        if ($request->file('image') == "") {
-            $cust = DB::table('products')->where('id', $request->id)->first();
-            $input['image'] = $cust->image;
+            $files = [];
+            foreach ($request->file('image') as $input) {
+                $destinationPath = public_path('images');
+                $profileImage = date('YmdHis') . "." . $input->getClientOriginalExtension();
+                $input->move($destinationPath, $profileImage);
+                $files[] = $profileImage;
+            }
+            $avatar = implode(',', $files);
+            $images = DB::table('products')->where('id', $request->id)->first();
+
+            Product::where('id', $request->id)->update(['image' => $avatar . ',' . $images->image]);
         }
         if ($request->id) {
             $arr = [
                 'watch_id' => $request->watchbrand,
                 'title' => $request->title,
                 'description' => $request->description,
-                'image' => $input['image'],
                 'price' => $request->price
             ];
             product::where('id', $request->id)->update($arr);
@@ -141,14 +139,23 @@ class DashboardController extends Controller
 
     public function productdelete(Request $request)
     {
-        $imagename = product::find($request->id);
-        unlink('images/' . $imagename->getRaworiginal('image'));
-        product::where("id", $imagename->id)->delete();
-        return response()->json('1');
+        // $imagename = product::find($request->id);
+        // unlink('images/' . $imagename->getRaworiginal('image'));
+        // product::where('id', $imagename->id)->delete();
+        // return response()->json('1');
+
+        // $b = product::with('image')->find($request->id);
+        // $image = explode(',', $b);
+        // foreach ($b->image as $images) {
+        //     if ($request->image == $images) {
+        //         unlink('images/' . $request->image->getRaworiginal('image'));
+        //         product::where('id', $request->id)->delete();
+        //     }
+        // }
+        // return response()->json('1');
 
         $id = $request->id;
         $query = product::find($id)->delete();
-
         if ($query) {
             return response()->json(['code' => 1, 'msg' => 'Data Has Been Deleted']);
         } else {
@@ -158,7 +165,7 @@ class DashboardController extends Controller
 
     public function productview(Request $request)
     {
-        $product = product::where('id', $request->id)->first();
+        $product = DB::table('products')->where('id', $request->id)->first();
         return view('admin.productview', compact('product'));
     }
 
@@ -166,6 +173,17 @@ class DashboardController extends Controller
     {
         $cart = product::where('id', $id)->first();
         return view('admin.cartview', compact('cart'));
-        // return view('admin.cartview');
+    }
+
+    public function deleteimage(Request $request)
+    {
+        $a = product::with('image')->find($request->id);
+        $image = explode(',', $a);
+        foreach ($a->image as $images) {
+            if ($request->image == $images) {
+                unlink('images/' . $request->image->getRaworiginal('image'));
+            }
+        }
+        return response()->json('1');
     }
 }

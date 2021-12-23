@@ -35,7 +35,7 @@
 
     <!-- ION Slider -->
     {{-- <link href="{{ asset('assets/libs/ion-rangeslider/css/ion.rangeSlider.min.css') }}" rel="stylesheet" --}}
-        type="text/css" />
+    type="text/css" />
 
     <!-- Bootstrap Css -->
     {{-- <link href="a{{ asset('assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" /> --}}
@@ -62,8 +62,8 @@
     <!-- Begin page -->
     <div id="layout-wrapper">
 
-
         <header id="page-topbar">
+            
             <div class="navbar-header">
                 <div class="d-flex">
                     <!-- LOGO -->

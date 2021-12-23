@@ -1,6 +1,6 @@
-@extends('adminlayout.master');
+@extends('adminlayout.master')
 
-@section('content');
+@section('content')
     <div class="content-wrapper">
         <section class="content">
             <h1>Edit Your Product</h1>
@@ -49,8 +49,17 @@
                                 @error('image')
                                     <span style="color: red">{{ $message }}</span>
                                 @enderror
+                                @php
+                                    $img = explode(',', $query->image);
+                                @endphp
                                 <div>
-                                    <img src="{{ $query->image }}" id="imageshows" alt="" height="100px">
+                                    @foreach ($img as $images)
+                                        <img src="{{ asset('images/' . $images) }}" id="imageshows" alt=""
+                                            height="100px">
+                                        <button type="button" class="btn btn-light" data-id="{{ $query->id }}"
+                                            data-image={{ $images }} id="deleteimage"><i style="color:red"
+                                                class="fa fa-minus"></i></button>
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="form-group">
@@ -76,6 +85,27 @@
 @endsection
 @push('js')
     <script>
-
+        $(document).on("click", '#deleteimage', function() {
+            var image = $(this).data('image');
+            var id = $(this).data('id');
+            var element = this;
+            if (confirm('Are You Sure Want To Delete This...???')) {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    type: "POST",
+                    url: "{{ route('admin.deleteimage') }}",
+                    dataType: "json",
+                    data: {
+                        image: image,
+                        id: id
+                    },
+                    success: function(response) {
+                        toastr.error('Image Delete Successfully');
+                    }
+                });
+            }
+        });
     </script>
 @endpush

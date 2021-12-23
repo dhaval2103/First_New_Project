@@ -1,4 +1,4 @@
-@extends('adminlayout.master');
+@extends('adminlayout.master')
 <body>
 
     <!-- <body data-layout="horizontal" data-topbar="colored"> -->

@@ -1,6 +1,6 @@
-@extends('adminlayout.master');
+@extends('adminlayout.master')
 
-@section('content');
+@section('content')
     <div class="content-wrapper">
         <section class="content">
             <h1>Add Your Product</h1>

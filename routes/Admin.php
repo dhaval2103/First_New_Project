@@ -29,4 +29,5 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::post('productupdate', [DashboardController::class, 'productupdate'])->name('productupdate');
     Route::get('productview/{id}', [DashboardController::class, 'productview'])->name('productview');
     Route::get('cartview/{id}', [DashboardController::class, 'cartview'])->name('cartview');
+    Route::post('deleteimage', [DashboardController::class, 'deleteimage'])->name('deleteimage');
 });

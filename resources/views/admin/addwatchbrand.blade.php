@@ -1,5 +1,5 @@
-@extends('adminlayout.master');
-@section('content');
+@extends('adminlayout.master')
+@section('content')
     <div class="content-wrapper">
         <section class="content">
             <h1>Add Watch Brand</h1>

@@ -29,14 +29,14 @@ class productvalidation extends FormRequest
                 'title' => 'required',
                 'description' => 'required',
                 'price' => 'required',
-                'image' => 'required',
+                // 'image' => 'required',
             ];
         } else {
             return [
                 'title' => 'required',
                 'description' => 'required',
                 'price' => 'required',
-                'image' => 'required,' . $id,
+                // 'image' => 'required,' . $id,
             ];
         }
     }

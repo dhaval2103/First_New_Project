@@ -1,4 +1,4 @@
-@extends('adminlayout.master');
+@extends('adminlayout.master')
 
 {{-- @section('content')
     <div class="content-wrapper">
@@ -70,14 +70,19 @@
                                                             ->first();
                                                     @endphp
                                                     <div class="col-3">
+                                                        @php
+                                                            $pic = explode(',', $product->image);
+                                                        @endphp
                                                         <div class="nav flex-column nav-pills" id="v-pills-tab"
                                                             role="tablist" aria-orientation="vertical">
-                                                            <a class="nav-link active" id="product-1-tab"
-                                                                data-toggle="pill" href="#product-1" role="tab">
-                                                                <img src=" {{ $product->image }}" alt=""
-                                                                    class="img-fluid mx-auto d-block tab-img rounded">
-                                                            </a>
-                                                            <a class="nav-link" id="product-2-tab"
+                                                            @foreach ($pic as $photo)
+                                                                <a class="nav-link active" id="product-1-tab"
+                                                                    data-toggle="pill" href="#product-1" role="tab">
+                                                                    <img src="{{ asset('images/' . $photo) }}" alt=""
+                                                                        class="img-fluid mx-auto d-block tab-img rounded">
+                                                                </a>
+                                                            @endforeach
+                                                            {{-- <a class="nav-link" id="product-2-tab"
                                                                 data-toggle="pill" href="#product-2" role="tab">
                                                                 <img src="{{ $product->image }}" alt=""
                                                                     class="img-fluid mx-auto d-block tab-img rounded">
@@ -91,7 +96,7 @@
                                                                 data-toggle="pill" href="#product-4" role="tab">
                                                                 <img src="{{ $product->image }}" alt=""
                                                                     class="img-fluid mx-auto d-block tab-img rounded">
-                                                            </a>
+                                                            </a> --}}
                                                         </div>
                                                     </div>
 
@@ -106,9 +111,16 @@
                                                             </div> --}}
                                                             <div class="tab-pane fade show active" id="product-1"
                                                                 role="tabpanel">
+                                                                @php
+                                                                    $img = explode(',', $product->image);
+                                                                @endphp
                                                                 <div class="product-img">
-                                                                    <img src="{{ $product->image }}" alt=""
+                                                                    @foreach ($img as $images)
+
+                                                                    @endforeach
+                                                                    <img src="{{ asset('images/' . $images) }}" alt=""
                                                                         class="img-thumbnail">
+
                                                                 </div>
                                                             </div>
                                                             <div class="tab-pane fade" id="product-2" role="tabpanel">
@@ -132,18 +144,22 @@
                                                         </div>
                                                         <div class="row text-center mt-2">
                                                             <div class="col-sm-6">
-                                                                <button type="button"
+                                                                {{-- <button type="button"
                                                                     class="btn btn-primary btn-block waves-effect waves-light mt-2 mr-1"><a
                                                                         href="{{ url('Admin/cartview/' . $product->id) }}"><i
                                                                             style="color: rgb(234, 234, 243)"
                                                                             class="uil uil-shopping-cart-alt mr-2"></i>Add
-                                                                        To Cart</a></button>
+                                                                        To Cart</a></button> --}}
+                                                                <button type="button" class="btn btn-warning"
+                                                                    data-dismiss="modal"><a
+                                                                        href="{{ route('admin.productdetail') }}">Back</a></button>
                                                             </div>
+
                                                             <div class="col-sm-6">
-                                                                <button type="button"
+                                                                {{-- <button type="button"
                                                                     class="btn btn-light btn-block waves-effect  mt-2 waves-light">
                                                                     <i class="uil uil-shopping-basket mr-2"></i>Buy now
-                                                                </button>
+                                                                </button> --}}
                                                             </div>
                                                         </div>
 
