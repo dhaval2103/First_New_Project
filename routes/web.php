@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\frontendcontroller;
+use App\Http\Controllers\HomeController;
+use App\Models\image;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +18,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $image = image::all();
+    return view('welcome', compact('image'));
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('allproduct', [frontendcontroller::class, 'allproduct'])->name('allproduct');

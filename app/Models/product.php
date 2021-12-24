@@ -11,7 +11,6 @@ class product extends Model
     protected $fillable = [
         'title',
         'description',
-        'image',
         'price',
     ];
 
@@ -19,9 +18,5 @@ class product extends Model
     {
         return $this->hasOne(product::class, 'id', 'watch_id');
     }
-
-    public function getImageAttribute($value)
-    {
-        return $value ? asset('images' . '/' . $value) : NULL;
-    }
+    
 }

@@ -6,6 +6,7 @@ use App\DataTables\productdatatable;
 use App\DataTables\userdatatable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\productvalidation;
+use App\Models\image;
 use App\Models\product;
 use App\Models\watchbrand;
 use Illuminate\Foundation\Auth\User;
@@ -81,6 +82,13 @@ class DashboardController extends Controller
 
     public function productinsert(productvalidation $request)
     {
+        $add = new product;
+        $add->watch_id = $request->watchbrand;
+        $add->title = $request->title;
+        $add->description = $request->description;
+        $add->price = $request->price;
+        $add->save();
+
         $input = $request->all();
         if ($request->file('image')) {
             $files = [];
@@ -88,16 +96,17 @@ class DashboardController extends Controller
                 $destinationPath = 'images/';
                 $profileImage = time() . '.' . $input->extension();
                 $input->move($destinationPath, $profileImage);
-                $files[] = $profileImage;
+                image::create([
+                    'product_id' => $add->id,
+                    'image' => $profileImage
+                ]);
             }
         }
-        $add = new product;
-        $add->watch_id = $request->watchbrand;
-        $add->title = $request->title;
-        $add->description = $request->description;
-        $add->price = $request->price;
-        $add->image = implode(',', $files);
-        $add->save();
+
+        // $img = new image;
+        // $img->image = implode(',', $files);
+        // $add->images()->save($img);
+
         return redirect()->route('admin.productdetail');
     }
 
@@ -105,7 +114,8 @@ class DashboardController extends Controller
     {
         $watchbrand = watchbrand::all();
         $query = DB::table('products')->where('id', $request->id)->first();
-        return view('admin.productedit', compact('query', 'watchbrand'));
+        $img = image::select('image')->where('product_id', $request->id)->get();
+        return view('admin.productedit', compact('query', 'watchbrand', 'img'));
     }
 
     public function productupdate(productvalidation $request)
@@ -117,12 +127,11 @@ class DashboardController extends Controller
                 $destinationPath = public_path('images');
                 $profileImage = date('YmdHis') . "." . $input->getClientOriginalExtension();
                 $input->move($destinationPath, $profileImage);
-                $files[] = $profileImage;
+                image::create([
+                    'product_id' => $request->id,
+                    'image' => $profileImage
+                ]);
             }
-            $avatar = implode(',', $files);
-            $images = DB::table('products')->where('id', $request->id)->first();
-
-            Product::where('id', $request->id)->update(['image' => $avatar . ',' . $images->image]);
         }
         if ($request->id) {
             $arr = [
@@ -134,6 +143,7 @@ class DashboardController extends Controller
             product::where('id', $request->id)->update($arr);
         }
         return redirect()->route('admin.productdetail');
+        // return response()->json('1');
     }
 
 
@@ -166,7 +176,8 @@ class DashboardController extends Controller
     public function productview(Request $request)
     {
         $product = DB::table('products')->where('id', $request->id)->first();
-        return view('admin.productview', compact('product'));
+        $viewimg = image::select('image')->where('product_id', $request->id)->get();
+        return view('admin.productview', compact('product', 'viewimg'));
     }
 
     public function cartview(Request $request, $id)
@@ -177,9 +188,10 @@ class DashboardController extends Controller
 
     public function deleteimage(Request $request)
     {
-        $a = product::with('image')->find($request->id);
-        $image = explode(',', $a);
-        foreach ($a->image as $images) {
+        // $a = product::find($request->id);
+        $b = image::where('id', $request->id);
+        $image = explode(',', $b);
+        foreach ($image as $images) {
             if ($request->image == $images) {
                 unlink('images/' . $request->image->getRaworiginal('image'));
             }

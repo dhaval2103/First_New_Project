@@ -7,7 +7,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card-body">
-                        <form method="POST" action="{{ route('admin.productupdate') }}" enctype="multipart/form-data">
+                        <form method="POST" id="updateproductform" action="{{ route('admin.productupdate') }}"
+                            enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" value="{{ $query->id }}" name="id">
                             <div class="alert alert-success d-none" id="msg_div">
@@ -49,14 +50,12 @@
                                 @error('image')
                                     <span style="color: red">{{ $message }}</span>
                                 @enderror
-                                @php
-                                    $img = explode(',', $query->image);
-                                @endphp
-                                <div>
+
+
+                                <div class="imageclass">
                                     @foreach ($img as $images)
-                                        <img src="{{ asset('images/' . $images) }}" id="imageshows" alt=""
-                                            height="100px">
-                                        <button type="button" class="btn btn-light" data-id="{{ $query->id }}"
+                                        <img src=" {{ $images->image }}" id="imageshows" alt="" height="100px">
+                                        <button type="button" class="btn btn-light" data-id="{{ $images->id }}"
                                             data-image={{ $images }} id="deleteimage"><i style="color:red"
                                                 class="fa fa-minus"></i></button>
                                     @endforeach
@@ -107,5 +106,59 @@
                 });
             }
         });
+
+        /*   $("#updateproductform").validate({
+               rules: {
+                   'title': {
+                       required: true
+                   },
+                   'description': {
+                       required: true
+                   },
+                   'price': {
+                       required: true
+                   },
+                   // 'image':{required:true},
+               },
+               messages: {
+                   'title': {
+                       required: "Please Enter Title..!!!"
+                   },
+                   'description': {
+                       required: "Please Enter Description..!!!"
+                   },
+                   'price': {
+                       required: "Please Enter Price..!!!"
+                   },
+                   // 'image':{required:"Please Choose Image..!!!"},
+               },
+               submitHandler: function(form) {
+
+                   $.ajax({
+                       headers: {
+                           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                       },
+                       type: "post",
+                       url: "{{ route('admin.productupdate') }}",
+                       data: new FormData(form),
+                       dataType: "json",
+                       contentType: false,
+                       processData: false,
+                       cache: false,
+                       success: function(data) {
+                           if (data == 1) {
+                               toastr.success('Product Update Successfully');
+                           }
+                       },
+                       error: function(response) {
+                           $.each(response.responseJSON.errors, function(field_name, errors) {
+                               $('[name=' + field_name + ']').after(
+                                   '<span class="text-strong" style="color:red">' +
+                                   errors + '</span>')
+                           })
+                       }
+                   });
+               }
+           }); */
     </script>
 @endpush

@@ -70,15 +70,12 @@
                                                             ->first();
                                                     @endphp
                                                     <div class="col-3">
-                                                        @php
-                                                            $pic = explode(',', $product->image);
-                                                        @endphp
                                                         <div class="nav flex-column nav-pills" id="v-pills-tab"
                                                             role="tablist" aria-orientation="vertical">
-                                                            @foreach ($pic as $photo)
+                                                            @foreach ($viewimg as $photo)
                                                                 <a class="nav-link active" id="product-1-tab"
                                                                     data-toggle="pill" href="#product-1" role="tab">
-                                                                    <img src="{{ asset('images/' . $photo) }}" alt=""
+                                                                    <img src="{{ $photo->image }}" alt=""
                                                                         class="img-fluid mx-auto d-block tab-img rounded">
                                                                 </a>
                                                             @endforeach
@@ -111,36 +108,33 @@
                                                             </div> --}}
                                                             <div class="tab-pane fade show active" id="product-1"
                                                                 role="tabpanel">
-                                                                @php
-                                                                    $img = explode(',', $product->image);
-                                                                @endphp
                                                                 <div class="product-img">
-                                                                    @foreach ($img as $images)
+                                                                    @foreach ($viewimg as $photo)
 
                                                                     @endforeach
-                                                                    <img src="{{ asset('images/' . $images) }}" alt=""
+                                                                    <img src="{{ $photo->image }}" alt=""
                                                                         class="img-thumbnail">
 
                                                                 </div>
                                                             </div>
-                                                            <div class="tab-pane fade" id="product-2" role="tabpanel">
+                                                            {{-- <div class="tab-pane fade" id="product-2" role="tabpanel">
                                                                 <div class="product-img">
-                                                                    <img src="{{ $product->image }}" alt=""
+                                                                    <img src="{{ $viewimg->image }}" alt=""
                                                                         class="img-fluid mx-auto d-block">
                                                                 </div>
                                                             </div>
                                                             <div class="tab-pane fade" id="product-3" role="tabpanel">
                                                                 <div class="product-img">
-                                                                    <img src="{{ $product->image }}" alt=""
+                                                                    <img src="{{ $viewimg->image }}" alt=""
                                                                         class="img-fluid mx-auto d-block">
                                                                 </div>
                                                             </div>
                                                             <div class="tab-pane fade" id="product-4" role="tabpanel">
                                                                 <div class="product-img">
-                                                                    <img src="{{ $product->image }}" alt=""
+                                                                    <img src="{{ $viewimg->image }}" alt=""
                                                                         class="img-fluid mx-auto d-block">
                                                                 </div>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                         <div class="row text-center mt-2">
                                                             <div class="col-sm-6">

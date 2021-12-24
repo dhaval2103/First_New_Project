@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use App\Models\image;
 use App\Models\product;
 use App\Models\watchbrand;
 use Illuminate\Support\Facades\DB;
@@ -26,18 +27,9 @@ class productdatatable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('image', function ($data) {
-                $b = explode(',', $data->image);
-                return "<img class='img-thumbnail' src='" . $b[0] . "' height='30px'>";
+                $images = image::where('product_id', $data->id)->first();
 
-                // $products = DB::table('products')->pluck('image')->all();
-                // $img = [];
-                // $a = implode(',', $products);
-                // $b = explode(',', $a);
-                // foreach ($b as $data) {
-                //     Log::info($data);
-                //     $img[] = "<img class='img-thumbnail' src='" . asset('images') . '/' . $data . "' height='10px'>";
-                // }
-                // return implode($img);
+                return "<img class='' src='" . $images['image'] . "' height='60px'>";
             })
             ->addColumn('action', function ($data) {
                 $id = $data->id;
@@ -77,8 +69,6 @@ class productdatatable extends DataTable
             ->minifiedAjax()
             ->dom('Bflrtip')
             ->orderBy(1)
-            ->pageLength(5)
-            ->lengthMenu([5, 10, 20, 30, 50])
             ->buttons(
                 Button::make('create'),
                 Button::make('export'),
