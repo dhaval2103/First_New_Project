@@ -56,8 +56,7 @@
                                     @foreach ($img as $images)
                                         <img src=" {{ $images->image }}" id="imageshows" alt="" height="100px">
                                         <button type="button" class="btn btn-light" data-id="{{ $images->id }}"
-                                            data-image={{ $images }} id="deleteimage"><i style="color:red"
-                                                class="fa fa-minus"></i></button>
+                                            id="deleteimage"><i style="color:red" class="fa fa-minus"></i></button>
                                     @endforeach
                                 </div>
                             </div>
@@ -85,7 +84,6 @@
 @push('js')
     <script>
         $(document).on("click", '#deleteimage', function() {
-            var image = $(this).data('image');
             var id = $(this).data('id');
             var element = this;
             if (confirm('Are You Sure Want To Delete This...???')) {
@@ -97,7 +95,6 @@
                     url: "{{ route('admin.deleteimage') }}",
                     dataType: "json",
                     data: {
-                        image: image,
                         id: id
                     },
                     success: function(response) {

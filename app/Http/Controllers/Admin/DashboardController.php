@@ -114,7 +114,7 @@ class DashboardController extends Controller
     {
         $watchbrand = watchbrand::all();
         $query = DB::table('products')->where('id', $request->id)->first();
-        $img = image::select('image')->where('product_id', $request->id)->get();
+        $img = image::select('image', 'id')->where('product_id', $request->id)->get();
         return view('admin.productedit', compact('query', 'watchbrand', 'img'));
     }
 
@@ -189,13 +189,8 @@ class DashboardController extends Controller
     public function deleteimage(Request $request)
     {
         // $a = product::find($request->id);
-        $b = image::where('id', $request->id);
-        $image = explode(',', $b);
-        foreach ($image as $images) {
-            if ($request->image == $images) {
-                unlink('images/' . $request->image->getRaworiginal('image'));
-            }
-        }
+        $b = image::where('id', $request->id)->delete();
+
         return response()->json('1');
     }
 }
