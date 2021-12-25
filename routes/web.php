@@ -29,3 +29,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('allproduct', [frontendcontroller::class, 'allproduct'])->name('allproduct');
 Route::get('viewallproduct', [frontendcontroller::class, 'viewallproduct'])->name('viewallproduct');
 Route::get('productdetail/{id}', [frontendcontroller::class, 'productdetail'])->name('productdetail');
+Route::get('cartview/{id}', [frontendcontroller::class, 'cartview'])->name('cartview');
+Route::post('addtocart', [frontendcontroller::class, 'addtocart'])->name('addtocart');
+Route::post('deletecart', [frontendcontroller::class, 'deletecart'])->name('deletecart');
