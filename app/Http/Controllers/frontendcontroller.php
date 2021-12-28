@@ -11,6 +11,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Stripe\Checkout\Session;
+use Stripe\Stripe;
 
 class frontendcontroller extends Controller
 {
@@ -31,15 +33,19 @@ class frontendcontroller extends Controller
         $product = product::where('id', $request->id)->first();
         $watch = watchbrand::where('id', $product->watch_id)->first();
         $imageDetails = image::select('image')->where('product_id', $request->id)->get();
-        return view('productdetail', compact('product', 'imageDetails', 'watch'));
+        // $count = DB::table('carts')->where('product_id', $request->id)->count();
+        $cart = cart::where('product_id', $request->id)->first();
+        $count = cart::where('product_id', $request->id)->first();
+        return view('productdetail', compact('product', 'imageDetails', 'watch', 'count', 'cart'));
     }
 
     public function cartview(Request $request, $id)
     {
         $product = product::where('id', $id)->first();
         $watch = watchbrand::where('id', $product->watch_id)->first();
-        $imageDetails = image::select('image')->where('product_id', $request->id)->first();
-        $cart = cart::where('product_id', $request->id)->first();
+        // $imageDetails = image::select('image')->where('product_id', $request->id)->first();
+        $imageDetails = image::all()->groupBy('product_id');
+        $cart = cart::where('user_id', Auth::user()->id)->get();
         return view('cartview', compact('product', 'imageDetails', 'watch', 'cart'));
     }
 
@@ -64,20 +70,59 @@ class frontendcontroller extends Controller
             $add->price = $product->price;
             $add->save();
         }
-
         return response()->json('1');
-        // $count = DB::table('cart')->where('product_id', $request->id)->count();
-        // return response()->json(['success' => '1', 'data' => $count, 'id' => $request->id]);
     }
 
-    public function deletecart(Request $request)
+    public function selectqty(Request $request)
     {
-        $id = $request->id;
-        $query = cart::find($id)->delete();
-        if ($query) {
-            return response()->json(['code' => 1, 'msg' => 'Cart-Product Has Been Deleted']);
+
+        $quantity = 0;
+        $totalPrice = 0;
+        $product = product::where('id', $request->pid)->first();
+        $cart = cart::where('product_id', $request->pid)->first();
+        if ($cart) {
+
+            $quantity = $request->id;
+            $totalPrice = $quantity * $product->price;
+
+            $arr = [
+                'quantity' => $quantity,
+                'price' => $totalPrice
+            ];
+            cart::where('product_id', $request->pid)->update($arr);
         } else {
-            return response()->json(['code' => 0, 'msg' => 'Something Wrong']);
+            $add = new cart;
+            $add->user_id = Auth::user()->id;
+            $add->quantity = $request->id;
+            $add->product_id = $request->pid;
+            $add->price = $product->price;
+            $add->save();
         }
+        $price = cart::where('product_id', $request->pid)->first();
+
+        return response()->json(['data' => $price]);
     }
+
+    public function checkout()
+    {
+        return view('checkout');
+    }
+
+    public function stripe()
+    {
+        return view('stripe');
+    }
+
+    // public function stripepayment(Request $request)
+    // {
+    //     stripe\stripe::setApiKey(env('STRIPE_SECRET'));
+    //     stripe\charge::create([
+    //         "amount" => 100 * 100,
+    //         "currency" => "IN",
+    //         "source" => $request->stripeToken,
+    //         "description" => "This Payment Only Testing Purpose"
+    //     ]);
+    //     Session::flash('Success', 'Payment Successfully');
+    //     return back();
+    // }
 }

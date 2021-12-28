@@ -21,6 +21,10 @@
     <link href="css/style.css" rel="stylesheet" />
     <!-- responsive style -->
     <link href="css/responsive.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css"
+        integrity="sha512-f8gN/IhfI+0E9Fc/LKtjVq4ywfhYAVeMGKsECzDUHcFJ5teVwvKTqizm+5a84FINhfrgdvjX8hEJbem2io1iTA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 
 <body>
@@ -43,9 +47,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('allproduct') }}">Products</a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <button class="btn btn-light shop"><i class="fa fa-shopping-cart"></i></button>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
                                 @if (Route::has('login'))
                                     @auth
@@ -127,9 +131,18 @@
         <script src="js/bootstrap.js"></script>
         <!-- custom js -->
         <script src="js/custom.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js"
+                integrity="sha512-MqEDqB7me8klOYxXXQlB4LaNf9V9S0+sG1i8LtPOYmHqICuEZ9ZLbyV3qIfADg2UJcLyCm4fawNiFvnYbcBJ1w=="
+                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
         <script>
             $(document).on("click", '.shop', function() {
-                alert('Please LogIN First...!!!');
+                swal({
+                    title: "Error :)",
+                    text: "Please Login First...!!!",
+                    icon: "success",
+                    button: "OK"
+                });
             });
         </script>
 </body>

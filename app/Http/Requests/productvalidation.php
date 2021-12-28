@@ -35,7 +35,7 @@ class productvalidation extends FormRequest
             return [
                 'title' => 'required',
                 'description' => 'required',
-                'price' => 'required',
+                'total_price' => 'required',
                 // 'image' => 'required,' . $id,
             ];
         }

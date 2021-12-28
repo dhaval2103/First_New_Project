@@ -6,22 +6,15 @@
     <meta charset="utf-8" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!-- Mobile Metas -->
-    <!-- Site Metas -->
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+
     <link rel="shortcut icon" href="images/favicon.png" type="">
-    <title>Famms - Fashion HTML Template</title>
-    <!-- bootstrap core css -->
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-    <!-- font awesome style -->
     <link href="css/font-awesome.min.css" rel="stylesheet" />
-    <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet" />
-    <!-- responsive style -->
     <link href="css/responsive.css" rel="stylesheet" />
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
@@ -31,9 +24,7 @@
     <link rel="shortcut icon" href="assets/images/favicon.ico">
     <link href="{{ asset('assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
     <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
     <link href="{{ asset('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
@@ -61,14 +52,14 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('viewallproduct') }}">Products</a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <button class="btn btn-light"><i class="fa fa-shopping-cart"></i></button>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
                                 {{-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"> --}}
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    <b>Logout</b></a>
+                                    <i class="fas fa-sign-out-alt"></i></a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                     class="d-none">
@@ -188,13 +179,13 @@
         <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
         <script src="{{ asset('assets/libs/waypoints/lib/jquery.waypoints.min.js') }}"></script>
         <script src="{{ asset('assets/libs/jquery.counterup/jquery.counterup.min.js') }}"></script>
-
         <script src="{{ asset('assets/js/app.js') }}"></script>
-        <!-- Bootrstrap touchspin -->
         <script src="{{ asset('assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
         <!-- init js -->
         <script src="{{ asset('assets/js/pages/ecommerce-cart.init.js') }}"></script>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
+        <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
         @stack('js')
 

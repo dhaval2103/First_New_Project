@@ -31,4 +31,7 @@ Route::get('viewallproduct', [frontendcontroller::class, 'viewallproduct'])->nam
 Route::get('productdetail/{id}', [frontendcontroller::class, 'productdetail'])->name('productdetail');
 Route::get('cartview/{id}', [frontendcontroller::class, 'cartview'])->name('cartview');
 Route::post('addtocart', [frontendcontroller::class, 'addtocart'])->name('addtocart');
-Route::post('deletecart', [frontendcontroller::class, 'deletecart'])->name('deletecart');
+Route::post('selectqty', [frontendcontroller::class, 'selectqty'])->name('selectqty');
+Route::get('checkout', [frontendcontroller::class, 'checkout'])->name('checkout');
+Route::get('stripe', [frontendcontroller::class, 'stripe'])->name('stripe');
+Route::get('stripepayment', [frontendcontroller::class, 'stripepayment'])->name('stripepayment');
