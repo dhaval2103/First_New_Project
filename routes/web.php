@@ -29,9 +29,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('allproduct', [frontendcontroller::class, 'allproduct'])->name('allproduct');
 Route::get('viewallproduct', [frontendcontroller::class, 'viewallproduct'])->name('viewallproduct');
 Route::get('productdetail/{id}', [frontendcontroller::class, 'productdetail'])->name('productdetail');
-Route::get('cartview/{id}', [frontendcontroller::class, 'cartview'])->name('cartview');
+Route::get('cartview', [frontendcontroller::class, 'cartview'])->name('cartview');
 Route::post('addtocart', [frontendcontroller::class, 'addtocart'])->name('addtocart');
 Route::post('selectqty', [frontendcontroller::class, 'selectqty'])->name('selectqty');
 Route::get('checkout', [frontendcontroller::class, 'checkout'])->name('checkout');
 Route::get('stripe', [frontendcontroller::class, 'stripe'])->name('stripe');
-Route::get('stripepayment', [frontendcontroller::class, 'stripepayment'])->name('stripepayment');
+Route::post('stripepayment', [frontendcontroller::class, 'stripepayment'])->name('stripepayment');
+Route::get('deletecart/{id}', [frontendcontroller::class, 'deletecart']);
+Route::post('customerdetail', [frontendcontroller::class, 'customerdetail'])->name('customerdetail');
+Route::get('cartview', [frontendcontroller::class, 'cartview'])->name('cartview');
+Route::get('billview', [frontendcontroller::class, 'billview'])->name('billview');
+Route::get('orderview', [frontendcontroller::class, 'orderview'])->name('orderview');

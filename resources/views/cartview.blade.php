@@ -13,33 +13,42 @@
     </section>
     <br>
     <div class="main-content">
-        <div class="page-content">
-            <div class="container-fluid">
-                <!-- start page title -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="page-title-box d-flex align-items-center justify-content-between">
-                            <h2 class="mb-0">Cart</h2>
-
-                            <div class="page-title-right">
-                                <ol class="breadcrumb m-0">
-                                </ol>
-                            </div>
-
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        {{-- <h2 class="mb-0">Cart</h2> --}}
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                            </ol>
                         </div>
+
                     </div>
                 </div>
-                <!-- end page title -->
+            </div>
+            <!-- end page title -->
 
-                <div class="row">
-                    <div class="col-xl-9">
-                        <div class="card border shadow-none">
-                            <div class="card-body">
-                                <div class="media border-bottom pb-3">
+            <div class="row">
+                <div class="col-xl-9">
+                    <div class="card border shadow-none">
+                        <div class="card-body">
+                            @foreach ($cart as $product)
+                                <div class="">
+                                    @php
+                                        $p = DB::table('products')
+                                            ->where('id', $product->product_id)
+                                            ->first();
+                                        $watch = DB::table('watchbrands')
+                                            ->where('id', $p->watch_id)
+                                            ->first();
+                                        $imageDetails = DB::table('images')
+                                            ->where('product_id', $product->product_id)
+                                            ->first();
+                                    @endphp
                                     <div class="mr-4">
-                                        @foreach ($imageDetails as $img)
-                                            <img src="{{ $img->image }}" alt="" class="avatar-lg">
-                                        @endforeach
+                                        <img src="{{ asset('images') . '/' . $imageDetails->image }}" alt=""
+                                            class="avatar-lg">
                                     </div>
                                     <div class="media-body align-self-center overflow-hidden" style="margin-left: 10px">
                                         <div>
@@ -47,100 +56,82 @@
                                                     class="font-weight-medium">{{ $watch->name }}</span>
                                             </h3>
                                             <p class="mb-1"><b>Title : </b><span
-                                                    class="font-weight-medium">{{ $product->title }}</span>
+                                                    class="font-weight-medium">{{ $p->title }}</span>
                                             </p>
                                             <p class="mb-1"><b>Description : </b><span
-                                                    class="font-weight-medium">{{ $product->description }}</span>
+                                                    class="font-weight-medium">{{ $p->description }}</span>
+                                            </p>
+                                            <p class="mb-1"><b>Price : </b><span
+                                                    class="font-weight-medium">{{ $p->price }}</span>
                                             </p>
                                         </div>
-                                    </div>
-                                    <div class="ml-2">
-                                        {{-- <ul>
-                                            <li><i class="fa fa-trash"></i></li>
-                                        </ul> --}}
+                                        <p class="mb-2"><b>Quantity : </b></p>
+                                        <div style="width: 110px;" class="product-cart-touchspin">
+                                            
+                                            <select name="qty" id="qty" data-pid="{{ $product->product_id }}" class="form-control qty-add">
+                                                @if ($product != null)
+                                                    @for ($i = 1; $i <= 10; $i++) 
+                                                        <option value={{ $i }} @if (!empty($product['quantity'] == $i)) selected @endif>{{ $i }}</option>
+                                                    @endfor
+                                                @else
+                                                    @for ($i = 1; $i <= 10; $i++)
+                                                        <option value={{ $i }}>{{ $i }}</option>
+                                                    @endfor
+                                                @endif
+                                            </select>
+                                        </div>
+                                            <p class="mb-2"><b>Total Price : </b></p>
+                                            @if ($product != null)
+                                                <h5 class="font-size-16 total_price{{ $product->product_id }}">{{ $product['price'] ?? null }}</h5>
+                                            @else
+                                                <h5 class="font-size-16 total_price{{ $product->product_id }}">{{ $product->price }}</h5>
+                                            @endif
                                     </div>
                                 </div>
-                                <div>
-                                    <form>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="mt-3">
-                                                    <p class="mb-2"><b>Price : </b></p>
-                                                    <h5 class="font-size-16">{{ $product->price }}</h5>
-                                                </div>
+                                    <a href="{{ url('deletecart/' . $product->product_id) }}" class="btn btn-danger btn-sm">Remove</a>
+                                    <br><br>
+                                            <div>
+                                                <form>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+
+                                                        </div>
+                                                        <div class="col-md-4">
+
+                                                        </div>
+                                                </form>
                                             </div>
-                                            <div class="col-md-4">
-                                                <div class="mt-3">
-                                                    @foreach ($cart as $carts)
-                                                        <p class="mb-2"><b>Quantity : </b></p>
-                                                        <div style="width: 110px;" class="product-cart-touchspin">
-                                                            <input type="hidden" value="{{ request()->id }}"
-                                                                class="product_ids">
-                                                            <select name="qty" id="qty" class="form-control qty-add">
-                                                                @if ($carts != null)
-                                                                    @for ($i = 1; $i <= 10; $i++) <option value={{ $i }} @if (!empty($carts['quantity'] == $i)) selected @endif>
-                                                                    {{ $i }}</option>
-                                                                @endfor
-                                                            @else
-                                                                @for ($i = 1; $i <= 10; $i++)
-                                                                    <option value={{ $i }}>
-                                                                        {{ $i }}</option>
-                                                                @endfor
-                                                    @endif
-                                                    </select>
-                                                    @endforeach
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="mt-3">
-                                                @foreach ($cart as $carts)
-                                                    <p class="mb-2"><b>Total : </b></p>
-                                                    @if ($carts != null)
-                                                        <h5 class="font-size-16 total_price">
-                                                            {{ $carts['price'] ?? null }}
-                                                        </h5>
-                                                    @else
-                                                        <h5 class="font-size-16 total_price">{{ $product->price }}
-                                                        </h5>
-                                                    @endif
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                </div>
-                                </form>
-
-                            </div>
-
-                        </div>
-                    </div>
-                    <!-- end card -->
-                    <br><br>
-                    <div class="row mt-4">
-                        <div class="col-sm-6">
-                            <a href="{{ route('viewallproduct') }}" class="btn btn-light btn-lg text-muted">
-                                <i class="uil uil-arrow-left mr-1"></i>Continue Shopping</a>
-                        </div> <!-- end col -->
-                        <div class="col-sm-6">
-                            <div class="text-sm-right mt-2 mt-sm-0">
-                                <a href="{{ route('checkout') }}" class="btn btn-success btn-lg">
-                                    <i class="uil uil-shopping-cart-alt mr-1"></i> Checkout </a>
-                            </div>
-                        </div> <!-- end col -->
-                    </div> <!-- end row-->
-                </div>
-
-                <div class="col-xl-4">
-                    <div class="mt-5 mt-lg-0">
-                        <div class="card border shadow-none">
-
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- end row -->
+    <!-- end card -->
+    <div class="row mt-4">
+        <div class="col-sm-6">
+            <a href="{{ route('viewallproduct') }}" class="btn btn-light btn-lg text-muted">
+                <i class="uil uil-arrow-left mr-1"></i>Continue Shopping</a>
+        </div> <!-- end col -->
+        <div class="col-sm-6">
+            <div class="text-sm-right mt-2 mt-sm-0">
+                <a href="{{ route('checkout') }}" class="btn btn-success btn-lg">
+                    <i class="uil uil-shopping-cart-alt mr-1"></i> Checkout </a>
+            </div>
+        </div> <!-- end col -->
+    </div> <!-- end row-->
+    </div>
 
-        </div> <!-- container-fluid -->
+    <div class="col-xl-4">
+        <div class="mt-5 mt-lg-0">
+            <div class="card border shadow-none">
+
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- end row -->
+
+    </div> <!-- container-fluid -->
     </div>
     </div>
 @endsection
@@ -148,7 +139,7 @@
     <script>
         $(document).on("change", '.qty-add', function() {
             var id = $(this).val();
-            var pid = $('.product_ids').val();
+            var pid = $(this).data('pid');
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -162,7 +153,7 @@
                 },
                 success: function(response) {
 
-                    $('.total_price').html(response.data.price)
+                    $('.total_price'+response.data.product_id).html(response.data.price)
                     toastr.success('Select Quantity Add');
                 }
             });

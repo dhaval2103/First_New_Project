@@ -80,16 +80,10 @@
                                                             <div class="col-sm-6">
                                                                 <button type="button"
                                                                     class="btn btn-danger btn-block waves-effect  mt-2 waves-light"><a
-                                                                        href="{{ url('cartview/' . request()->id) }}"
+                                                                        href="{{ url('cartview') }}"
                                                                         style="color:rgb(247, 242, 242)"><i
                                                                             class="uil uil-shopping-basket mr-2"></i>Buy
                                                                         now</a></button>
-                                                                {{-- <button type="button" id="buynow"
-                                                                        class="btn btn-danger btn-block waves-effect  mt-2 waves-light"
-                                                                        data-id="{{ request()->id }}"><i
-                                                                            style="color:rgb(247, 242, 242)"
-                                                                            class="uil uil-shopping-basket mr-2"></i>Buy
-                                                                        Now</button> --}}
                                                             </div>
                                                         </div>
 

@@ -39,6 +39,7 @@ class ComposerStaticInite934f6d4d099790c7e55f9c8bd629e10
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         'ed962a97bd972bc82007176b647d4e36' => __DIR__ . '/..' . '/facade/ignition/src/helpers.php',
+        '1aff2f8abd60e952b4bdd52d4f05a132' => __DIR__ . '/../..' . '/app/helper.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -597,6 +598,7 @@ class ComposerStaticInite934f6d4d099790c7e55f9c8bd629e10
 
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
+        'App\\DataTables\\orderdatatable' => __DIR__ . '/../..' . '/app/DataTables/orderdatatable.php',
         'App\\DataTables\\productdatatable' => __DIR__ . '/../..' . '/app/DataTables/productdatatable.php',
         'App\\DataTables\\userdatatable' => __DIR__ . '/../..' . '/app/DataTables/userdatatable.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
@@ -620,15 +622,18 @@ class ComposerStaticInite934f6d4d099790c7e55f9c8bd629e10
         'App\\Http\\Middleware\\TrustHosts' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustHosts.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Http\\Requests\\Customerdetailvalidation' => __DIR__ . '/../..' . '/app/Http/Requests/Customerdetailvalidation.php',
         'App\\Http\\Requests\\Imagevalidation' => __DIR__ . '/../..' . '/app/Http/Requests/Imagevalidation.php',
         'App\\Http\\Requests\\productvalidation' => __DIR__ . '/../..' . '/app/Http/Requests/productvalidation.php',
         'App\\Http\\Requests\\watchvalidation' => __DIR__ . '/../..' . '/app/Http/Requests/watchvalidation.php',
         'App\\Models\\Admin' => __DIR__ . '/../..' . '/app/Models/Admin.php',
+        'App\\Models\\Customerdetail' => __DIR__ . '/../..' . '/app/Models/Customerdetail.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\cart' => __DIR__ . '/../..' . '/app/Models/cart.php',
         'App\\Models\\comment' => __DIR__ . '/../..' . '/app/Models/comment.php',
         'App\\Models\\image' => __DIR__ . '/../..' . '/app/Models/image.php',
         'App\\Models\\like' => __DIR__ . '/../..' . '/app/Models/like.php',
+        'App\\Models\\order' => __DIR__ . '/../..' . '/app/Models/order.php',
         'App\\Models\\product' => __DIR__ . '/../..' . '/app/Models/product.php',
         'App\\Models\\watchbrand' => __DIR__ . '/../..' . '/app/Models/watchbrand.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
