@@ -1,5 +1,4 @@
-@extends('userlayout.afterloginmaster')
-@section('content')
+
 <html>
 
 <head>
@@ -33,25 +32,22 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="full">
-                        <h3>Invoice</h3>
+                        {{-- <h3>Invoice</h3> --}}
                     </div>
                 </div>
             </div>  
         </div>
     </section>
     <br>
-{{-- <div class="container">
-    <a class="btn btn-primary" href="" style="margin-left: 180px">Generate Pdf & Mail</a>
-</div> --}}
+<div class="container">
+    <a class="btn btn-primary" href="{{ url('generatepdf',request()->id) }}" style="margin-left: 300px">Generate Pdf</a>
+</div>
 <body style="margin: 0px; background-color: #ebeef3;">
-    {{-- @dd($view) --}}
-    <table width="100%" cellpadding="0" cellspacing="0" align="center"
-        style="font-family: 'Open Sans', sans-serif; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased;">
+
+    <table width="100%" cellpadding="0" cellspacing="0" align="center" style="font-family: 'Open Sans', sans-serif; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased;">
         <tr>
             <td style="vertical-align: top;" align="center">
-                <table cellpadding="0" cellspacing="0" align="center"
-                    style="width: 760px; margin: 24px auto; background-color: #fff; box-shadow: 0px 2px 4px rgba(0,0,0,0.16);">
-
+                <table cellpadding="0" cellspacing="0" align="center" style="width: 760px; margin: 24px auto; background-color: #fff; box-shadow: 0px 2px 4px rgba(0,0,0,0.16);">
                     <tr>
                         <td>
                             <table width="100%" height="100%" cellpadding="0" cellspacing="0" align="left">
@@ -62,8 +58,7 @@
                                                 <td align="left" style="padding: 40px">
                                                 </td>
                                             </tr>
-                                            <tr
-                                                style="vertical-align: middle; background-color: #eaf1f2; padding-bottom: 20px;">
+                                            <tr style="vertical-align: middle; background-color: #eaf1f2; padding-bottom: 20px;">
                                                 <td style="width: 50%; padding: 0px 15px 40px 40px;">
                                                     <table cellpadding="0" cellspacing="0" width="100%">
                                                         <tr>
@@ -72,13 +67,13 @@
                                                                     <b>{{ Auth::user()->name }}</b></h4>
                                                             </td>
                                                         </tr>
-                                                        @foreach ($address as $add)
-                                                        @endforeach
+                                                        {{-- @foreach ($address as $add)
+                                                        @endforeach --}}
 
                                                         <tr style="text-align: left;">
                                                             <td align="left" style="padding-bottom: 10px;">
                                                                 <p style="font-size: 14px; color: #6f7177; line-height: 22px; margin: 0; letter-spacing: 0.6px;">
-                                                                   <b>Address :</b>  {{ $add->address }}</p>
+                                                                   <b>Address :</b>{{ $address->address }}</p>
                                                             </td>
                                                         </tr>
 
@@ -92,14 +87,15 @@
                                                         <tr style="text-align: left;">
                                                             <td align="left">
                                                                 <p style="font-size: 14px; color: #6f7177; line-height: 22px; margin: 0; letter-spacing: 0.6px;">
-                                                                    <b>Mo. :</b><span>{{ $add->phone }}</span></p>
+                                                                    <b>Mo. :</b><span>{{ $address->phone }}</span></p>
                                                             </td>
                                                         </tr>
                                                     </table>
                                                 </td>
                                                 <td style="width: 50%; padding: 0px 40px 40px 15px;">
                                                     @foreach ($view as $views)
-                                                        
+                                                    @endforeach
+
                                                     <table cellpadding="0" cellspacing="0" width="100%">
                                                         <tr>
                                                             <td align="right" style="display: inline-block; width: 100%; padding-bottom: 6px;">
@@ -126,7 +122,6 @@
                                                             </td>
                                                         </tr>
                                                     </table>
-                                                    @endforeach
 
                                                 </td>
                                             </tr>
@@ -159,7 +154,6 @@
                                             @endphp
                                             @foreach ($view as $products)
                                             @php
-                                               
                                                $p=DB::table('products')->where('id',$products->product_id)->first();
                                             @endphp
                                             <tr style="vertical-align: top;">
@@ -212,6 +206,10 @@
                                                         $22.5</p>
                                                 </td>
                                             </tr>
+                                            @php
+                                                $total=0;
+                                            @endphp
+                                            @foreach ($view as $grand)
                                             <tr style="vertical-align: bottom;">
                                                 <td colspan="2"></td>
                                                 <td colspan="2" align="left" style="padding: 13px; border-top: 1px solid #e7e8ec;  color: #f7941d; vertical-align: middle; font-weight: 700;">
@@ -220,7 +218,11 @@
                                                 </td>
                                                 <td align="right" style="padding: 13px; border-top: 1px solid #e7e8ec;  color: #f7941d; vertical-align: middle; font-weight: 700;">
                                                     <p style="font-size: 16px; margin: 0; color: #000; letter-spacing: 0.2px; text-transform: uppercase; ">
-                                                        $467.5</p>
+                                                        @php
+                                                            $total+=$grand->totalprice;
+                                                        @endphp
+                                                        {{ $total }}</p>
+                                                        @endforeach
                                                 </td>
                                             </tr>
                                         </table>
@@ -258,13 +260,13 @@
                                                                                             <tr style="text-align: left;">
                                                                                                 <td align="left">
                                                                                                     <h6 style="margin: 0px; font-size: 15px; font-weight: 600; ">
-                                                                                                        {{ $add->name }}</h6>
+                                                                                                        {{ $address->name }}</h6>
                                                                                                 </td>
                                                                                             </tr>
                                                                                             <tr style="text-align: left;">
                                                                                                 <td align="left">
                                                                                                     <p style="font-size: 14px; color: #6f7177; line-height: 22px; margin: 0; letter-spacing: 0.6px;">
-                                                                                                        {{ $add->address }}
+                                                                                                        {{ $address->address }}
                                                                                                 </td>
                                                                                             </tr>
                                                                                         </table>
@@ -298,4 +300,3 @@
 </body>
 
 </html>
-@endsection

@@ -40,3 +40,4 @@ Route::post('customerdetail', [frontendcontroller::class, 'customerdetail'])->na
 Route::get('cartview', [frontendcontroller::class, 'cartview'])->name('cartview');
 Route::get('billview/{id}', [frontendcontroller::class, 'billview'])->name('billview');
 Route::get('orderview', [frontendcontroller::class, 'orderview'])->name('orderview');
+Route::get('generatepdf/{id}', [frontendcontroller::class, 'generatepdf'])->name('generatepdf');

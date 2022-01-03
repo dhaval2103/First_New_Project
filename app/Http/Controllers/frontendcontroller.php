@@ -17,11 +17,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use PhpOffice\PhpSpreadsheet\Writer\Pdf\Mpdf;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 use Prophecy\Doubler\Generator\Node\ReturnTypeNode;
 use Stripe\Checkout\Session;
 use Stripe;
 use Stripe\Customer;
+use PDF;
 
 class frontendcontroller extends Controller
 {
@@ -168,9 +170,9 @@ class frontendcontroller extends Controller
                         'totalprice' => $total,
                     ]);
                 }
-                $address = Customerdetail::where('user_id', Auth::user()->id)->get();
-
-                Mail::to(Auth::user()->email)->send(new MailMail($orderId, $address));
+                $address = Customerdetail::where('user_id', Auth::user()->id)->first();
+                $view = order::where('user_id', Auth::user()->id)->where('invoiceno', $orderId->invoiceno)->get();
+                Mail::to(Auth::user()->email)->send(new MailMail($view, $address));
             }
             cart::where('user_id', Auth::user()->id)->delete();
             DB::commit();
@@ -203,9 +205,6 @@ class frontendcontroller extends Controller
 
     public function orderview(Request $request)
     {
-
-        // $exist = order::where('user_id', Auth::user()->id)->get()->groupBy('invoiceno');
-        // $exist = order::all()->groupBy('invoiceno');
         $exist = DB::table('orders')
             ->select('invoiceno', DB::raw('count(*) as total'))
             ->groupBy('invoiceno')->get();
@@ -214,8 +213,20 @@ class frontendcontroller extends Controller
 
     public function billview(Request $request, $id)
     {
-        $address = Customerdetail::where('user_id', Auth::user()->id)->get();
+        $address = Customerdetail::where('user_id', Auth::user()->id)->first();
         $view = order::select('*')->where('user_id', Auth::user()->id)->where('invoiceno', $id)->get();
         return view('billview', compact('view', 'address'));
+    }
+
+    public function generatepdf(Request $request, $id)
+    {
+        $address = Customerdetail::where('user_id', Auth::user()->id)->first();
+        $view = order::select('*')->where('user_id', Auth::user()->id)->where('invoiceno', $id)->get();
+        $data = [
+            'view' => $view,
+            'address' => $address,
+        ];
+        $pdf = PDF::loadview('generatepdf',compact('view','address'));
+        return $pdf->stream('invoice.pdf');
     }
 }

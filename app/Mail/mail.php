@@ -6,19 +6,21 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class mail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $details, $address;
+    public $views;
+    public $address;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($details, $address)
+    public function __construct($views, $address)
     {
-        $this->details = $details;
+        $this->view = $views;
         $this->address = $address;
     }
 
@@ -29,7 +31,7 @@ class mail extends Mailable
      */
     public function build()
     {
-        $view = $this->details;
+        $view = $this->view;
         $address = $this->address;
         return $this->view('billview', compact('view', 'address'));
     }
