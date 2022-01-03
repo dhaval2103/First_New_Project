@@ -46,7 +46,7 @@ class orderdatatable extends DataTable
             ->setTableId('orderdatatable-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->dom('Bfrtip')
+            ->dom('Bflrtip')
             ->orderBy(1)
             ->buttons(
                 Button::make('create'),

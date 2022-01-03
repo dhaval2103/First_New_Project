@@ -33,8 +33,9 @@
                 <div class="col-xl-9">
                     <div class="card border shadow-none">
                         <div class="card-body">
+                            <div class="row">
                             @foreach ($cart as $product)
-                                <div class="">
+                                <div class="col-md-4">
                                     @php
                                         $p = DB::table('products')
                                             ->where('id', $product->product_id)
@@ -87,21 +88,10 @@
                                                 <h5 class="font-size-16 total_price{{ $product->product_id }}">{{ $product->price }}</h5>
                                             @endif
                                     </div>
-                                </div>
                                     <a href="{{ url('deletecart/' . $product->product_id) }}" class="btn btn-danger btn-sm">Remove</a>
-                                    <br><br>
-                                            <div>
-                                                <form>
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-
-                                                        </div>
-                                                        <div class="col-md-4">
-
-                                                        </div>
-                                                </form>
-                                            </div>
+                                </div>
                             @endforeach
+                             </div>
                         </div>
                     </div>
                 </div>

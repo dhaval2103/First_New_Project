@@ -14,5 +14,11 @@ class order extends Model
         'product_id',
         'quantity',
         'price',
+        'totalprice',
     ];
+
+    // public function order()
+    // {
+    //     return $this->hasMany(order::class, 'invoiceno', 'id');
+    // }
 }

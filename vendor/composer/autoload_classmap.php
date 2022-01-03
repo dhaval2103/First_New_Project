@@ -35,6 +35,7 @@ return array(
     'App\\Http\\Requests\\Imagevalidation' => $baseDir . '/app/Http/Requests/Imagevalidation.php',
     'App\\Http\\Requests\\productvalidation' => $baseDir . '/app/Http/Requests/productvalidation.php',
     'App\\Http\\Requests\\watchvalidation' => $baseDir . '/app/Http/Requests/watchvalidation.php',
+    'App\\Mail\\mail' => $baseDir . '/app/Mail/mail.php',
     'App\\Models\\Admin' => $baseDir . '/app/Models/Admin.php',
     'App\\Models\\Customerdetail' => $baseDir . '/app/Models/Customerdetail.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',

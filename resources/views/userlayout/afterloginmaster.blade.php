@@ -12,10 +12,10 @@
     <meta name="author" content="" />
 
     <link rel="shortcut icon" href="images/favicon.png" type="">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-    <link href="css/font-awesome.min.css" rel="stylesheet" />
-    <link href="css/style.css" rel="stylesheet" />
-    <link href="css/responsive.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}" />
+    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/responsive.css') }}" rel="stylesheet" />
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css"
@@ -52,6 +52,10 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('viewallproduct') }}">Products</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('orderview') }}">Order</a>
+                            </li>
+
                             <li class="nav-item">
                                 <a href="{{ route('cartview') }}" class="nav-link"><i class="fa fa-shopping-cart"></i></a>
                             </li>

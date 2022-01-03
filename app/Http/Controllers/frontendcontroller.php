@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\orderdatatable;
 use App\Http\Requests\Customerdetailvalidation;
+use App\Mail\mail as MailMail;
 use App\Models\cart;
 use App\Models\Customerdetail;
 use App\Models\image;
@@ -15,9 +16,12 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 use Prophecy\Doubler\Generator\Node\ReturnTypeNode;
 use Stripe\Checkout\Session;
 use Stripe;
+use Stripe\Customer;
 
 class frontendcontroller extends Controller
 {
@@ -116,7 +120,6 @@ class frontendcontroller extends Controller
 
     public function stripepayment(Request $request)
     {
-        dd($request->pid);
         DB::beginTransaction();
         try {
 
@@ -150,15 +153,24 @@ class frontendcontroller extends Controller
                 "description" => "This Payment Only Testing Purpose"
             ]);
             if ($invoice['amount_refunded'] == 0 && empty($invoice['failure_code']) && $invoice['paid'] == 1 && $invoice['captured'] == 1) {
-                // $product = product::where('id', $request->pid)->first();
-                $cart = cart::where('product_id', $request->pid)->where('user_id', Auth::user()->id)->get();
-                $add = new order;
-                $add->invoiceno = generateInvoiceNumber($request->id);
-                $add->user_id = Auth::user()->id;
-                $add->product_id = $cart->product_id;
-                $add->qunatity = $cart->quantity;
-                $add->price = $cart->price;
-                $add->save();
+                $order = cart::where('user_id', Auth::user()->id)->get();
+                $invoice = generateInvoiceNumber(rand(100000, 999999));
+                foreach ($order as $orders) {
+                    $product = product::where('id', $orders->product_id)->first();
+                    $total = 0;
+                    $total += $orders->price;
+                    $orderId = order::create([
+                        'invoiceno' => $invoice,
+                        'user_id' => Auth::user()->id,
+                        'product_id' => $orders->product_id,
+                        'quantity' => $orders->quantity,
+                        'price' => $product->price,
+                        'totalprice' => $total,
+                    ]);
+                }
+                $address = Customerdetail::where('user_id', Auth::user()->id)->get();
+
+                Mail::to(Auth::user()->email)->send(new MailMail($orderId, $address));
             }
             cart::where('user_id', Auth::user()->id)->delete();
             DB::commit();
@@ -189,8 +201,21 @@ class frontendcontroller extends Controller
         return redirect()->route('stripe')->with('success', 'Customer Detail Add Successfully');
     }
 
-    public function orderview(orderdatatable $request)
+    public function orderview(Request $request)
     {
-        return $request->render('orderview');
+
+        // $exist = order::where('user_id', Auth::user()->id)->get()->groupBy('invoiceno');
+        // $exist = order::all()->groupBy('invoiceno');
+        $exist = DB::table('orders')
+            ->select('invoiceno', DB::raw('count(*) as total'))
+            ->groupBy('invoiceno')->get();
+        return view('orderview', compact('exist'));
+    }
+
+    public function billview(Request $request, $id)
+    {
+        $address = Customerdetail::where('user_id', Auth::user()->id)->get();
+        $view = order::select('*')->where('user_id', Auth::user()->id)->where('invoiceno', $id)->get();
+        return view('billview', compact('view', 'address'));
     }
 }

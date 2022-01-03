@@ -38,5 +38,5 @@ Route::post('stripepayment', [frontendcontroller::class, 'stripepayment'])->name
 Route::get('deletecart/{id}', [frontendcontroller::class, 'deletecart']);
 Route::post('customerdetail', [frontendcontroller::class, 'customerdetail'])->name('customerdetail');
 Route::get('cartview', [frontendcontroller::class, 'cartview'])->name('cartview');
-Route::get('billview', [frontendcontroller::class, 'billview'])->name('billview');
+Route::get('billview/{id}', [frontendcontroller::class, 'billview'])->name('billview');
 Route::get('orderview', [frontendcontroller::class, 'orderview'])->name('orderview');

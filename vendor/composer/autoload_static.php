@@ -626,6 +626,7 @@ class ComposerStaticInite934f6d4d099790c7e55f9c8bd629e10
         'App\\Http\\Requests\\Imagevalidation' => __DIR__ . '/../..' . '/app/Http/Requests/Imagevalidation.php',
         'App\\Http\\Requests\\productvalidation' => __DIR__ . '/../..' . '/app/Http/Requests/productvalidation.php',
         'App\\Http\\Requests\\watchvalidation' => __DIR__ . '/../..' . '/app/Http/Requests/watchvalidation.php',
+        'App\\Mail\\mail' => __DIR__ . '/../..' . '/app/Mail/mail.php',
         'App\\Models\\Admin' => __DIR__ . '/../..' . '/app/Models/Admin.php',
         'App\\Models\\Customerdetail' => __DIR__ . '/../..' . '/app/Models/Customerdetail.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',

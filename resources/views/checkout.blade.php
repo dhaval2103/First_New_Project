@@ -84,8 +84,8 @@
                                                     <div class="col-lg-4">
                                                         <div class="form-group mb-4">
                                                             <label for="billing-phone">Phone</label>
-                                                            <input type="text" class="form-control" name="phone"
-                                                                placeholder="Enter Phone no.">
+                                                            <input type="numeric" class="form-control" name="phone"
+                                                                placeholder="Enter Phone no." maxlength="10">
                                                             @error('phone')
                                                                 <span style="color: red">{{ $message }}</span>
                                                             @enderror

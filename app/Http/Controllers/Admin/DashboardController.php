@@ -102,11 +102,6 @@ class DashboardController extends Controller
                 ]);
             }
         }
-
-        // $img = new image;
-        // $img->image = implode(',', $files);
-        // $add->images()->save($img);
-
         return redirect()->route('admin.productdetail');
     }
 
