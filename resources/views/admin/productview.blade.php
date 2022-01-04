@@ -165,80 +165,10 @@
                                             <div class="mt-4 mt-xl-3 pl-xl-4">
                                                 <h2 class="font-size-25">{{ $watch->name }}</h2>
                                                 <h3 class="font-size-20 mb-3">{{ $product->title }}</h3>
-
-                                                <div class="text-muted">
-                                                    <span class="badge badge-success font-size-14 mr-1"><i
-                                                            class="mdi mdi-star"></i> 4.2</span> 234 Reviews
-                                                </div>
-
-                                                <h5 class="mt-4 pt-2"><del
-                                                        class="text-muted mr-2">$22080</del>${{ $product->price }}
-                                                    <span class="text-danger font-size-14 ml-2">- 20 % Off</span>
+                                                <h5 class="mt-4 pt-2"><del class="text-muted mr-2"></del>{{ $product->price }}/-
+                                                    <span class="text-danger font-size-14 ml-2"></span>
                                                 </h5>
-
-                                                <p class="mt-4 text-muted">{{ $product->description }}</p>
-
-                                                <div>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="mt-3">
-
-                                                                <h5 class="font-size-14">Specification :</h5>
-                                                                <ul class="list-unstyled product-desc-list text-muted">
-                                                                    <li><i
-                                                                            class="mdi mdi-circle-medium mr-1 align-middle"></i>
-                                                                        High Quality</li>
-                                                                    <li><i
-                                                                            class="mdi mdi-circle-medium mr-1 align-middle"></i>
-                                                                        Leather</li>
-                                                                    <li><i
-                                                                            class="mdi mdi-circle-medium mr-1 align-middle"></i>
-                                                                        All Sizes available</li>
-                                                                    <li><i
-                                                                            class="mdi mdi-circle-medium mr-1 align-middle"></i>
-                                                                        4 Different Color</li>
-                                                                </ul>
-
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                            <div class="mt-3">
-                                                                <h5 class="font-size-14">Services :</h5>
-                                                                <ul class="list-unstyled product-desc-list text-muted">
-                                                                    <li><i
-                                                                            class="uil uil-exchange text-primary mr-1 font-size-16"></i>
-                                                                        10 Days Replacement</li>
-                                                                    <li><i
-                                                                            class="uil uil-bill text-primary mr-1 font-size-16"></i>
-                                                                        Cash on Delivery available</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    {{-- <div class="mt-3">
-
-                                                        <h5 class="font-size-14 mb-3"><i
-                                                                class="uil uil-location-pin-alt font-size-20 text-primary align-middle mr-2"></i>
-                                                            Delivery location</h5>
-
-                                                        <div class="form-inline">
-
-                                                            <div class="input-group mb-3">
-                                                                <input type="text" class="form-control"
-                                                                    placeholder="Enter Delivery pincode ">
-                                                                <div class="input-group-append">
-                                                                    <button class="btn btn-light"
-                                                                        type="button">Check</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                    </div> --}}
-
-
-                                                </div>
+                                                <h6 class="mt-4 text-muted">{{ $product->description }}</h6>
                                             </div>
                                         </div>
                                     </div>

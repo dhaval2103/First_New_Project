@@ -68,24 +68,11 @@
                                                             {{-- @foreach ($address as $add)
                                                             @endforeach --}}
     
-                                                            <tr style="text-align: left;">
-                                                                <td align="left" style="padding-bottom: 10px;">
-                                                                    <p style="font-size: 14px; color: #6f7177; line-height: 22px; margin: 0; letter-spacing: 0.6px;">
-                                                                       <b>Address :</b>{{ $address->address }}</p>
-                                                                </td>
-                                                            </tr>
-    
+                                                            
                                                             <tr style="text-align: left;">
                                                                 <td align="left" style="padding-bottom: 5px;">
                                                                     <p style="font-size: 14px; color: #6f7177; line-height: 22px; margin: 0; letter-spacing: 0.6px;">
                                                                        <b>Email :</b><span>{{ Auth::user()->email }}</span></p>
-                                                                </td>
-    
-                                                            </tr>
-                                                            <tr style="text-align: left;">
-                                                                <td align="left">
-                                                                    <p style="font-size: 14px; color: #6f7177; line-height: 22px; margin: 0; letter-spacing: 0.6px;">
-                                                                        <b>Mo. :</b><span>{{ $address->phone }}</span></p>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -173,20 +160,15 @@
                                                                 $grandTotal+=$products->totalprice;
                                                             @endphp
                                                             {{ $products->totalprice }}</p>   
-    
                                                 @endforeach
                                                     </td>
                                                 </tr>
                                                 <tr style="vertical-align: bottom;">
                                                     <td colspan="2"></td>
+                                                    <td colspan="1"></td>
                                                     <td colspan="2" align="left" style=" padding: 13px;  ">
-                                                        <p style="font-size: 14px; margin: 0; color: #6f7177; letter-spacing: 0.2px; text-transform: uppercase;">
-                                                            <strong>Subtotal : </strong>
-                                                        </p>
-                                                    </td>
-                                                    <td align="right" style=" padding: 13px; ">
-                                                        <p style="font-size: 15px; color: #000; margin: 0; letter-spacing: 0.6px;">
-                                                            {{$grandTotal}}
+                                                        <p style="font-size: 16px; margin: 0; color: #000; letter-spacing: 0.2px; text-transform: uppercase; ">
+                                                            <strong>Total  :-  {{$grandTotal}}</strong>
                                                         </p>
                                                     </td>
                                                 </tr>
@@ -194,33 +176,33 @@
                                                     <td colspan="2"></td>
                                                     <td colspan="2" align="left"
                                                         style=" padding: 13px; border-top: 1px solid #eee; ">
-                                                        <p style="font-size: 14px; margin: 0; color: #6f7177; letter-spacing: 0.2px; text-transform: uppercase;">
+                                                        {{-- <p style="font-size: 14px; margin: 0; color: #6f7177; letter-spacing: 0.2px; text-transform: uppercase;">
                                                             <strong>Discount <span>5%</span> : </strong>
-                                                        </p>
+                                                        </p> --}}
                                                     </td>
                                                     <td align="right"
                                                         style=" padding: 13px; border-top: 1px solid #e7e8ec;">
-                                                        <p style="font-size: 15px; color: #000; margin: 0; letter-spacing: 0.6px;">
-                                                            $22.5</p>
+                                                        {{-- <p style="font-size: 15px; color: #000; margin: 0; letter-spacing: 0.6px;">
+                                                            $22.5</p> --}}
                                                     </td>
                                                 </tr>
                                                 @php
                                                     $total=0;
                                                 @endphp
-                                                @foreach ($view as $grand)
+                                                {{-- @foreach ($view as $grand) --}}
                                                 <tr style="vertical-align: bottom;">
                                                     <td colspan="2"></td>
                                                     <td colspan="2" align="left" style="padding: 13px; border-top: 1px solid #e7e8ec;  color: #f7941d; vertical-align: middle; font-weight: 700;">
-                                                        <p style="font-size: 16px; margin: 0; color: #000; letter-spacing: 0.2px; text-transform: uppercase; ">
-                                                            Total</p>
+                                                        {{-- <p style="font-size: 16px; margin: 0; color: #000; letter-spacing: 0.2px; text-transform: uppercase; ">
+                                                            Total</p> --}}
                                                     </td>
                                                     <td align="right" style="padding: 13px; border-top: 1px solid #e7e8ec;  color: #f7941d; vertical-align: middle; font-weight: 700;">
-                                                        <p style="font-size: 16px; margin: 0; color: #000; letter-spacing: 0.2px; text-transform: uppercase; ">
+                                                        {{-- <p style="font-size: 16px; margin: 0; color: #000; letter-spacing: 0.2px; text-transform: uppercase; ">
                                                             @php
                                                                 $total+=$grand->totalprice;
                                                             @endphp
                                                             {{ $total }}</p>
-                                                            @endforeach
+                                                            @endforeach --}}
                                                     </td>
                                                 </tr>
                                             </table>
@@ -250,21 +232,33 @@
                                                                                             <table cellpadding="2" cellspacing="0" width="100%">
                                                                                                 <tr>
                                                                                                     <td align="left" style="padding-bottom: 5px; text-transform: uppercase;">
-                                                                                                        <h5>
+                                                                                                        <h4>
                                                                                                             <b>Shipping Details</b>
-                                                                                                        </h5>
+                                                                                                        </h4>
                                                                                                     </td>
                                                                                                 </tr>
                                                                                                 <tr style="text-align: left;">
                                                                                                     <td align="left">
-                                                                                                        <h6 style="margin: 0px; font-size: 15px; font-weight: 600; ">
-                                                                                                            {{ $address->name }}</h6>
+                                                                                                        <h5 style="margin: 0px; font-size: 15px; font-weight: 600; ">
+                                                                                                           {{ $address->name }}</h5>
                                                                                                     </td>
                                                                                                 </tr>
                                                                                                 <tr style="text-align: left;">
                                                                                                     <td align="left">
                                                                                                         <p style="font-size: 14px; color: #6f7177; line-height: 22px; margin: 0; letter-spacing: 0.6px;">
-                                                                                                            {{ $address->address }}
+                                                                                                            Address :- {{ $address->address }}
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr style="text-align: left;">
+                                                                                                    <td align="left">
+                                                                                                        <p style="font-size: 14px; color: #6f7177; line-height: 22px; margin: 0; letter-spacing: 0.6px;">
+                                                                                                            Email :- {{ $address->email }}
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr style="text-align: left;">
+                                                                                                    <td align="left">
+                                                                                                        <p style="font-size: 14px; color: #6f7177; line-height: 22px; margin: 0; letter-spacing: 0.6px;">
+                                                                                                            Mobile No. :- {{ $address->phone }}
                                                                                                     </td>
                                                                                                 </tr>
                                                                                             </table>

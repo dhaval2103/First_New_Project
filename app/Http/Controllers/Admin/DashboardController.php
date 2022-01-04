@@ -138,7 +138,6 @@ class DashboardController extends Controller
             product::where('id', $request->id)->update($arr);
         }
         return redirect()->route('admin.productdetail');
-        // return response()->json('1');
     }
 
 

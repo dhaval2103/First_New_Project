@@ -44,7 +44,7 @@
                                     <span style="color: red">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="dltimg">
                                 <label for="Image" class="col-form-label">Image :</label><br>
                                 <input type="file" class="form-control image" name="image[]" multiple>
                                 @error('image')
@@ -99,6 +99,7 @@
                     },
                     success: function(response) {
                         toastr.error('Image Delete Successfully');
+                        location.reload();
                     }
                 });
             }

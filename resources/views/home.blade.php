@@ -64,7 +64,7 @@
                                         On Everything
                                     </h1>
                                     <div class="btn-box">
-                                        <button class="btn btn-warning shop"><b>Shop Now</b></button>
+                                        {{-- <button class="btn btn-warning shop"><b>Shop Now</b></button> --}}
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
                                         On Everything
                                     </h1>
                                     <div class="btn-box">
-                                        <button class="btn btn-warning shop"><b>Shop Now</b></button </div>
+                                        {{-- <button class="btn btn-warning shop"><b>Shop Now</b></button </div> --}}
                                     </div>
                                 </div>
                             </div>

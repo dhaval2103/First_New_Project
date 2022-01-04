@@ -24,6 +24,8 @@ use Stripe\Checkout\Session;
 use Stripe;
 use Stripe\Customer;
 use PDF;
+use Stripe\Order as StripeOrder;
+use Symfony\Component\Console\Input\Input;
 
 class frontendcontroller extends Controller
 {
@@ -170,6 +172,14 @@ class frontendcontroller extends Controller
                         'totalprice' => $total,
                     ]);
                 }
+                if (Auth::user()->refferal_id != null) {
+                    $cashback = $total * 10 / 100;
+                    User::where('id', Auth::user()->refferal_id)->update([
+                        'wallet' => $cashback,
+
+                    ]);
+                    User::where('id', Auth::user()->id)->update(['refferal_id' => null]);
+                }
                 $address = Customerdetail::where('user_id', Auth::user()->id)->first();
                 $view = order::where('user_id', Auth::user()->id)->where('invoiceno', $orderId->invoiceno)->get();
                 Mail::to(Auth::user()->email)->send(new MailMail($view, $address));
@@ -207,6 +217,7 @@ class frontendcontroller extends Controller
     {
         $exist = DB::table('orders')
             ->select('invoiceno', DB::raw('count(*) as total'))
+            ->where('user_id', Auth::user()->id)
             ->groupBy('invoiceno')->get();
         return view('orderview', compact('exist'));
     }
@@ -226,7 +237,7 @@ class frontendcontroller extends Controller
             'view' => $view,
             'address' => $address,
         ];
-        $pdf = PDF::loadview('generatepdf',compact('view','address'));
+        $pdf = PDF::loadview('generatepdf', compact('view', 'address'));
         return $pdf->stream('invoice.pdf');
     }
 }

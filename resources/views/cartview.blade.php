@@ -102,7 +102,7 @@
             <a href="{{ route('viewallproduct') }}" class="btn btn-light btn-lg text-muted">
                 <i class="uil uil-arrow-left mr-1"></i>Continue Shopping</a>
         </div> <!-- end col -->
-        <div class="col-sm-6">
+        <div class="col-sm-2">
             <div class="text-sm-right mt-2 mt-sm-0">
                 <a href="{{ route('checkout') }}" class="btn btn-success btn-lg">
                     <i class="uil uil-shopping-cart-alt mr-1"></i> Checkout </a>
