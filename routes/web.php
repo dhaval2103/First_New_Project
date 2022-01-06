@@ -25,6 +25,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('afterloginmaster', [frontendcontroller::class, 'afterloginmaster'])->name('afterloginmaster');
 
 Route::get('allproduct', [frontendcontroller::class, 'allproduct'])->name('allproduct');
 Route::get('viewallproduct', [frontendcontroller::class, 'viewallproduct'])->name('viewallproduct');

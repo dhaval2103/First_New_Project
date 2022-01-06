@@ -23,16 +23,9 @@ class watchvalidation extends FormRequest
      */
     public function rules()
     {
-        $id = $this->id;
-        if ($id == "") {
             return [
                 'name' => 'required',
             ];
-        } else {
-            return [
-                'name' => 'required' . $id,
-            ];
-        }
     }
     public function messages()
     {

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $count=cart::where('user_id',Auth::user()->id)->count();
+        return view('home',compact('count'));
     }
 }

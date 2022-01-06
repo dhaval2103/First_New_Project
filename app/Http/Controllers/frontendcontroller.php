@@ -29,6 +29,13 @@ use Symfony\Component\Console\Input\Input;
 
 class frontendcontroller extends Controller
 {
+    
+    // public function afterloginmaster(Request $request)
+    // {
+    //     $count=cart::where('user_id',Auth::user()->id)->count();
+    //     return view('userlayout.afterloginmaster',compact('count'));
+    // }
+    
     public function allproduct()
     {
         $image = image::all()->groupBy('product_id');
@@ -37,8 +44,9 @@ class frontendcontroller extends Controller
 
     public function viewallproduct()
     {
+        $count=cart::where('user_id',Auth::user()->id)->count();
         $image = image::all()->groupBy('product_id');
-        return view('viewallproduct', compact('image'));
+        return view('viewallproduct', compact('image','count'));
     }
 
     public function productdetail(Request $request)
@@ -48,14 +56,16 @@ class frontendcontroller extends Controller
         $imageDetails = image::select('image')->where('product_id', $request->id)->get();
         // $count = DB::table('carts')->where('product_id', $request->id)->count();
         $cart = cart::where('product_id', $request->id)->first();
-        $count = cart::where('product_id', $request->id)->first();
+        // $count = cart::where('product_id', $request->id)->first();
+        $count=cart::where('user_id',Auth::user()->id)->count();
         return view('productdetail', compact('product', 'imageDetails', 'watch', 'count', 'cart'));
     }
 
     public function cartview(Request $request)
     {
+        $count=cart::where('user_id',Auth::user()->id)->count();
         $cart = cart::where('user_id', Auth::user()->id)->get();
-        return view('cartview', compact('cart'));
+        return view('cartview', compact('cart','count'));
     }
 
     public function addtocart(Request $request)
@@ -113,8 +123,9 @@ class frontendcontroller extends Controller
 
     public function checkout()
     {
+        $count=cart::where('user_id',Auth::user()->id)->count();
         $cart = cart::where('user_id', Auth::user()->id)->get();
-        return view('checkout', compact('cart'));
+        return view('checkout', compact('cart','count'));
     }
 
     public function stripe()
@@ -175,11 +186,18 @@ class frontendcontroller extends Controller
                 if (Auth::user()->refferal_id != null) {
                     $cashback = $total * 10 / 100;
                     User::where('id', Auth::user()->refferal_id)->update([
-                        'wallet' => $cashback,
-
+                        'wallet' => $cashback
                     ]);
                     User::where('id', Auth::user()->id)->update(['refferal_id' => null]);
                 }
+
+                if (Auth::user()->wallet <= $total) {
+                    return back()->with('error', 'Your Wallet In Not Inuf Money');
+                } else {
+                    $manage = Auth::user()->wallet - $total;
+                    User::where('id', Auth::user()->id)->update(['wallet' => $manage]);
+                }
+                // $count=cart::where('user_id',Auth::user()->id)->count();
                 $address = Customerdetail::where('user_id', Auth::user()->id)->first();
                 $view = order::where('user_id', Auth::user()->id)->where('invoiceno', $orderId->invoiceno)->get();
                 Mail::to(Auth::user()->email)->send(new MailMail($view, $address));
@@ -215,18 +233,20 @@ class frontendcontroller extends Controller
 
     public function orderview(Request $request)
     {
+        $count=cart::where('user_id',Auth::user()->id)->count();
         $exist = DB::table('orders')
             ->select('invoiceno', DB::raw('count(*) as total'))
             ->where('user_id', Auth::user()->id)
             ->groupBy('invoiceno')->get();
-        return view('orderview', compact('exist'));
+        return view('orderview', compact('exist','count'));
     }
 
     public function billview(Request $request, $id)
     {
+        $count=cart::where('user_id',Auth::user()->id)->count();
         $address = Customerdetail::where('user_id', Auth::user()->id)->first();
         $view = order::select('*')->where('user_id', Auth::user()->id)->where('invoiceno', $id)->get();
-        return view('billview', compact('view', 'address'));
+        return view('billview', compact('view', 'address','count'));
     }
 
     public function generatepdf(Request $request, $id)

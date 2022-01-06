@@ -89,10 +89,10 @@
                             <div class="col-md-6">
                                 <input id="refferal_id" type="text" class="form-control @error('refferal_id') is-invalid @enderror" name="refferal_id">
                                 @error('refferal_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                            </div>
                             
                             {{-- @if(session()->has('message.level'))

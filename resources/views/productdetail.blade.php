@@ -67,10 +67,10 @@
                                                                     <button type="button" id="addtocart"
                                                                         class="btn btn-warning btn-block waves-effect waves-light mt-2 mr-1"
                                                                         data-id="{{ request()->id }}">
-                                                                        @if ($count != null)
+                                                                        {{-- @if ($count != null)
                                                                             {{ $count->quantity }}
-                                                                        @endif&nbsp;&nbsp;<i
-                                                                            style="color: rgb(234, 234, 243)"
+                                                                        @endif&nbsp;&nbsp; --}}
+                                                                        <i style="color: rgb(234, 234, 243)"
                                                                             class="uil uil-shopping-cart-alt mr-2"></i>Add
                                                                         To Cart
                                                                     </button>
@@ -128,8 +128,14 @@
                 },
                 success: function(data) {
                     if (data == 1) {
+                        // toastr.success('Your Product Was Add In Cart');
+                        swal({
+                            title: "Success :)",
+                            text: "Your Product Was Add In Cart",
+                            icon: "success",
+                            button: "OK"
+                        });
                         location.reload();
-                        toastr.success('Done');
                     }
                 }
             });

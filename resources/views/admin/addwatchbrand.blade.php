@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card-body">
-                        <form method="POST" id="form" action="{{ route('admin.insertwatch') }}">
+                        <form method="POST" id="watch" action="{{ route('admin.insertwatch') }}">
                             @csrf
                             <input type="hidden" class="form-control id" name="id">
                             <div class="alert alert-success d-none" id="msg_div">
@@ -34,6 +34,23 @@
         </section>
     </div>
 @endsection
+@push('js')
 <script>
-    {{-- $document.on("") --}}
+    $(document).ready(function(){
+        $("#watch").validate({
+            rules: {
+                'watch': {
+                    required: true
+                },
+            },
+            messages: {
+                'watch': {
+                    required: "Please Enter Watch..!!!"
+                }  
+            } 
+        })
+    });
 </script>
+
+@endpush
+    

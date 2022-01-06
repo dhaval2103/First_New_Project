@@ -33,9 +33,9 @@ class productdatatable extends DataTable
             })
             ->addColumn('action', function ($data) {
                 $id = $data->id;
-                return '<button type="button" class="btn btn-light" id="editdata"><a href="' . route("admin.productedit", $id) . '"><i class="fa fa-edit"></i></a></button>
+                return '<a class="btn btn-light" href="' . route("admin.productedit", $id) . '"><i style="color:blue" class="fa fa-edit"></i></a>
                 <button class="btn btn-light" id="deletedata" data-id="' . $data->id . '"><i style="color:red" class="fas fa-trash"></i></button>
-                <button type="button" class="btn btn-light" id="viewdata"><a href="' . route("admin.productview", $id) . '"><i style="color:green" class="fa fa-eye"></i></a></button>';
+                <a class="btn btn-light" href="' . route("admin.productview", $id) . '"><i style="color:green" class="fa fa-eye"></i></a>';
             })
             ->addcolumn('name', function ($data) {
                 return watchbrand::where('id', $data->watch_id)->pluck('name')->first();

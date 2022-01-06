@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card-body">
-                        <form method="POST" action="{{ route('admin.productinsert') }}" id="form"
+                        <form method="POST" action="{{ route('admin.productinsert') }}" id="updateproductform"
                             enctype="multipart/form-data">
                             @csrf
                             {{-- <input type="hidden" class="form-control watchid" name="watchid"> --}}
@@ -72,6 +72,40 @@
 @endsection
 @push('js')
     <script>
-     
+    $(document).ready(function(){
+            $("#updateproductform").validate({
+                rules: {
+                    'watchbrand':{
+                        required:true
+                    },
+                    'title': {
+                        required: true
+                    },
+                    'description': {
+                        required: true
+                    },
+                    'price': {
+                        required: true
+                    },
+                    'image[]':{required:true},
+                },
+                messages: {
+                    'watchbrand':{
+                        required:"Please Select Watchbrand..!!!"
+                    },
+                    'title': {
+                        required: "Please Enter Title..!!!"
+                    },
+                    'description': {
+                        required: "Please Enter Description..!!!"
+                    },
+                    'price': {
+                        required: "Please Enter Price..!!!"
+                    },
+                    'image[]':{required:"Please Choose Image..!!!"},
+                },
+                
+            });
+    })
     </script>
 @endpush

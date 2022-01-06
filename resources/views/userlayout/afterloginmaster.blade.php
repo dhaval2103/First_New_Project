@@ -36,7 +36,7 @@
         <header class="header_section">
             <div class="container">
                 <nav class="navbar navbar-expand-lg custom_nav-container ">
-                    <h1><b>T</b>ime <b>Z</b>one </h1>
+                    <h1><b style="color: #f7444e">T</b>ime <b style="color: #f7444e">Z</b>one</h1>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -55,9 +55,8 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('orderview') }}">Order</a>
                             </li>
-
                             <li class="nav-item">
-                                <a href="{{ route('cartview') }}" class="nav-link"><i class="fa fa-shopping-cart"></i></a>
+                                <a href="{{ route('cartview') }}" class="nav-link"><i class="fa fa-shopping-cart"></i>&nbsp;{{ $count }}</a>
                             </li>
                             <li class="nav-item">
                                 {{-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"> --}}
@@ -69,6 +68,9 @@
                                     @csrf
                                 </form>
                                 {{-- </div> --}}
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"><i class="fas fa-wallet"></i>&nbsp;{{ Auth::user()->wallet }}/-</a>
                             </li>
                         </ul>
                     </div>
@@ -84,7 +86,7 @@
                     <div class="col-md-4">
                         <div class="full">
                             <div class="logo_footer">
-                                <h1><b>T</b>ime <b>Z</b>one </h1>
+                                <h1><b style="color: #f7444e">T</b>ime <b style="color: #f7444e">Z</b>one </h1>
                             </div>
                             <div class="">
                                 <p><strong>ADDRESS:</strong> 28 RJD Square, Gajera Surat City, INDIA</p>

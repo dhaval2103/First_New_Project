@@ -23,20 +23,22 @@ class productvalidation extends FormRequest
      */
     public function rules()
     {
-        $id = $this->watchid;
-        if ($id == "") {
+        $id = $this->id;
+        if ($id) {
             return [
-                'title' => 'required',
+                'watchbrand' => 'required',
+                'title' => 'required|unique:products,title,' . $id,
                 'description' => 'required',
                 'price' => 'required',
-                // 'image' => 'required',
+                // 'image' => 'max:1',
             ];
         } else {
             return [
-                'title' => 'required',
+                'watchbrand' => 'required',
+                'title' => 'required|unique:products,title',
                 'description' => 'required',
-                'total_price' => 'required',
-                // 'image' => 'required,' . $id,
+                'image' => 'required',
+                'price' => 'required',
             ];
         }
     }

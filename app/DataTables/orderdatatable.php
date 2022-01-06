@@ -3,6 +3,9 @@
 namespace App\DataTables;
 
 use App\Models\order;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -21,7 +24,19 @@ class orderdatatable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'orderdatatable.action');
+
+            ->addColumn('action', function ($data) {
+                $id = $data->invoiceno;
+                return '<a class="btn btn-light" href="' . route("admin.viewbilldetail", $id) . '"><i style="color:green" class="fa fa-eye"></i></a>';
+            })
+            ->addcolumn('name', function ($data) {
+                return User::where('id', $data->user_id)->pluck('name')->first();
+            })
+            ->addcolumn('email', function ($data) {
+                return User::where('id', $data->user_id)->pluck('email')->first();
+            })
+            ->rawColumns(['action', 'name', 'email'])
+            ->addIndexColumn();
     }
 
     /**
@@ -32,7 +47,8 @@ class orderdatatable extends DataTable
      */
     public function query(order $model)
     {
-        return $model->newQuery();
+        $ids = $model->get()->unique('invoiceno')->pluck('id');
+        return $model->whereIn('id', $ids);
     }
 
     /**
@@ -65,15 +81,17 @@ class orderdatatable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make('no')->data('DT_RowIndex')->searchable(false)->orderable(false)->width(50),
+            Column::make('invoiceno')->width(100),
+            Column::make('name')->title('CustomerName')->width(100),
+            Column::make('email')->title('CustomerEmail')->width(100),
+            // Column::make('totalprice')->title('Amount'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
                 ->width(60)
                 ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+
         ];
     }
 

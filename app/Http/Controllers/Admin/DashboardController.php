@@ -2,23 +2,32 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\orderdatatable;
 use App\DataTables\productdatatable;
 use App\DataTables\userdatatable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\productvalidation;
+use App\Http\Requests\watchvalidation;
+use App\Models\Customerdetail;
 use App\Models\image;
+use App\Models\order;
 use App\Models\product;
 use App\Models\watchbrand;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        return view('admin.dashboard');
+        $order = order::all()->count();
+        $product = product::all()->count();
+        $customer = User::all()->count();
+        return view('admin.dashboard', compact('order', 'product', 'customer'));
     }
 
     public function userdetail(userdatatable $request)
@@ -72,7 +81,7 @@ class DashboardController extends Controller
         return view('admin.addwatchbrand');
     }
 
-    public function insertwatch(Request $request)
+    public function insertwatch(watchvalidation $request)
     {
         $add = new watchbrand;
         $add->name = $request->watch;
@@ -186,5 +195,19 @@ class DashboardController extends Controller
         $b = image::where('id', $request->id)->delete();
 
         return response()->json('1');
+    }
+
+    public function orderdetail(orderdatatable $request)
+    {
+        return $request->render('admin.orderdetail');
+    }
+
+    public function viewbilldetail(Request $request, $id)
+    {
+        $userId = order::select('user_id')->where('invoiceno', $id)->first();
+        $data = User::where('id', $userId->user_id)->first();
+        $address = Customerdetail::where('user_id', $userId->user_id)->first();
+        $view = order::select('*')->where('invoiceno', $id)->get();
+        return view('admin.viewbilldetail', compact('view', 'address', 'data'));
     }
 }

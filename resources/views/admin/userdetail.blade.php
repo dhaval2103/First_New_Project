@@ -88,15 +88,15 @@
     {{ $dataTable->scripts() }}
 
     <script>
-        $(document).on("click", '.add', function() {
+        // $(document).on("click", '.add', function() {
 
-            $('#title').val('');
-            $('#frmid').val('');
-            $('#description').val('');
-            $('#price').val('');
-            $('#imageshow').prop('src', '');
+        //     $('#title').val('');
+        //     $('#frmid').val('');
+        //     $('#description').val('');
+        //     $('#price').val('');
+        //     $('#imageshow').prop('src', '');
 
-        });
+        // });
         $(document).on("click", '.edituser', function() {
             var id = $(this).data('id');
             $.ajax({
@@ -194,57 +194,57 @@
             $('#userid').val(a);
         });
 
-        $("#register").validate({
-            rules: {
-                'title': {
-                    required: true
-                },
-                'description': {
-                    required: true
-                },
-                'price': {
-                    required: true
-                },
-                messages: {
-                    'title': {
-                        required: 'Please Enter Title..!!',
-                    },
-                    'description': {
-                        required: 'please Enter Desription..!!',
-                    },
-                    'price': {
-                        requuired: 'Please Enter Price..!!',
-                    },
-                },
-                submitHandler: function(form) {
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        type: "POST",
-                        url: "{{ route('admin.addproduct') }}",
-                        data: new FormData(form),
-                        dataType: "json",
-                        contentType: false,
-                        processData: false,
-                        cache: false,
-                        success: function(data) {
-                            if (data == 1) {
-                                $('#userdatatable-table').DataTable().ajax.reload();
-                                $('#addproductModal').modal('hide');
-                                toastr.success('Product Add Successfully');
-                            }
-                        },
-                        error: function(response) {
-                            $.each(response.responseJSON.errors, function(field_name, errors) {
-                                $('[name=' + field_name + ']').after(
-                                    '<span class="text-strong" style="color:red">' +
-                                    errors + '</span>')
-                            })
-                        }
-                    });
-                }
-            }
-        });
+        // $("#register").validate({
+        //     rules: {
+        //         'title': {
+        //             required: true
+        //         },
+        //         'description': {
+        //             required: true
+        //         },
+        //         'price': {
+        //             required: true
+        //         },
+        //         messages: {
+        //             'title': {
+        //                 required: 'Please Enter Title..!!',
+        //             },
+        //             'description': {
+        //                 required: 'please Enter Desription..!!',
+        //             },
+        //             'price': {
+        //                 requuired: 'Please Enter Price..!!',
+        //             },
+        //         },
+        //         submitHandler: function(form) {
+        //             $.ajax({
+        //                 headers: {
+        //                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        //                 },
+        //                 type: "POST",
+        //                 url: "{{ route('admin.addproduct') }}",
+        //                 data: new FormData(form),
+        //                 dataType: "json",
+        //                 contentType: false,
+        //                 processData: false,
+        //                 cache: false,
+        //                 success: function(data) {
+        //                     if (data == 1) {
+        //                         $('#userdatatable-table').DataTable().ajax.reload();
+        //                         $('#addproductModal').modal('hide');
+        //                         toastr.success('Product Add Successfully');
+        //                     }
+        //                 },
+        //                 error: function(response) {
+        //                     $.each(response.responseJSON.errors, function(field_name, errors) {
+        //                         $('[name=' + field_name + ']').after(
+        //                             '<span class="text-strong" style="color:red">' +
+        //                             errors + '</span>')
+        //                     })
+        //                 }
+        //             });
+        //         }
+        //     }
+        // });
     </script>
 @endpush

@@ -24,7 +24,7 @@ class Customerdetailvalidation extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|alpha_num',
+            'name' => 'required|regex:/^[a-zA-Z\s]*$/',
             'email' => 'required',
             'phone' => 'required|numeric',
             'address' => 'required',

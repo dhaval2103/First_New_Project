@@ -30,4 +30,6 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('productview/{id}', [DashboardController::class, 'productview'])->name('productview');
     Route::get('cartview/{id}', [DashboardController::class, 'cartview'])->name('cartview');
     Route::post('deleteimage', [DashboardController::class, 'deleteimage'])->name('deleteimage');
+    Route::get('orderdetail', [DashboardController::class, 'orderdetail'])->name('orderdetail');
+    Route::get('viewbilldetail/{id}', [DashboardController::class, 'viewbilldetail'])->name('viewbilldetail');
 });

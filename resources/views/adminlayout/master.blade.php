@@ -205,6 +205,13 @@
                                 <span>Product-List</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('admin.orderdetail') }}" class="waves-effect">
+                                <i class="fa fa-user"></i>
+                                <span>Order-List</span>
+                            </a>
+                        </li>
+
 
                     </ul>
                 </div>
@@ -319,7 +326,6 @@
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
 
     {{-- <script src="{{ asset('assets/js/app.js') }}"></script> --}}
